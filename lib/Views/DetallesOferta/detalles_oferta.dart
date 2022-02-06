@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 class DetallesOfertaPage extends StatefulWidget {
   DetallesOfertaPage({Key? key}) : super(key: key);

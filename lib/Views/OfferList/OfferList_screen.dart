@@ -1,7 +1,8 @@
 //import 'dart:html';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'OfferListBLOC/offerlist/offerlist_bloc.dart';
 import 'OfferListWidgets/OfferListWidget.dart';
 
 class OfferList extends StatefulWidget {
@@ -12,6 +13,7 @@ class OfferList extends StatefulWidget {
 class _OfferListState extends State<OfferList> {
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<OfferlistBloc>(context).add(GetAll());
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(

@@ -8,14 +8,26 @@ part 'offerlist_event.dart';
 part 'offerlist_state.dart';
 
 class OfferlistBloc extends Bloc<OfferlistEvent, OfferlistState> {
+  void _onGetAll(GetAll event, Emitter<OfferlistState> emit) {
+    emit(OfferlistState(
+          offer: 
+          [new OfferDTO(offerName: 'Hola Luis'), 
+          new OfferDTO(offerName:'Soy Crack'), 
+          new OfferDTO(offerName:'Digalo')
+          ]
+        )
+    );
+  }
   OfferlistBloc() : super(OfferlistState(offer: [])) {
-    @override
+    /* @override
     Stream<OfferlistState> mapEventToState(
       OfferlistEvent event,
-    ) async* {}
-
-    /*on<OfferlistEvent>((event, emit) {
-      // TODO: implement event handler
-    });*/
+    ) async* {
+      if (event is GetAll) {
+        yield OfferlistState(
+            offer: [new OfferDTO(offerName: 'Hola Luis'), new OfferDTO(offerName:'Soy Crack'), new OfferDTO(offerName:'Digalo')]);
+      }
+    }*/
+    on<GetAll>(_onGetAll);
   }
 }

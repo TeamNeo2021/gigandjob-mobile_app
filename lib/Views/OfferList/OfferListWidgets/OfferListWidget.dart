@@ -23,8 +23,7 @@ class OfferListWidget extends StatelessWidget {
                     ),
                   ]),
                 );
-              }
-              //],
+              }              
               ),
         );
       },

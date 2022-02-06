@@ -20,20 +20,23 @@ class _OfferListState extends State<OfferList> {
         centerTitle: true,
         backgroundColor: Colors.redAccent,
       ),
-      body: /* Column(
+      /*body:  Column(
         children: <Widget>[*/
-          ListView.builder(
-              itemCount: list_Of_Offers.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  color: Colors.amber[200],
-                  child: ListTile(
-                    title: Text(list_Of_Offers[index]),
-                  ),
-                );
-              }
-              //],
-              ),
+      body: SafeArea(
+        child: ListView.builder(
+            padding: EdgeInsets.all(10),
+            itemCount: list_Of_Offers.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Card(
+                color: Colors.amber[200],
+                child: ListTile(
+                  title: Text(list_Of_Offers[index]),
+                ),
+              );
+            }
+            //],
+            ),
+      ),
     );
   }
 }

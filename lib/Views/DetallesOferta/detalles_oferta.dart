@@ -28,34 +28,40 @@ class _DetallesOfertaPageState extends State<DetallesOfertaPage> {
               child: Text(
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec posuere metus. Pellentesque accumsan blandit tortor, sed elementum metus pharetra vel. Vestibulum non viverra nisl, in hendrerit lorem. Aliquam ultricies ipsum ut velit vulputate iaculis. Curabitur rhoncus, justo id vehicula placerat, justo velit rhoncus neque, eget pharetra diam tortor sit amet augue. Mauris in sollicitudin nisl. Praesent'),
             ),
-            Container(
-                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 18),
-                child: Row(
-              children: [
-                CircleAvatar(
-                  backgroundImage:
-                      NetworkImage('https://picsum.photos/id/237/200/300'),
-                      radius: 50,
-                ),
-                SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,                  
-                  children: [
-                    Text('Empleador', style: TextStyle(
-                fontWeight: FontWeight.w200, color: Colors.grey[800])),
-                    SizedBox(height: 10),
-                    Text('Nombre del empleador', style: TextStyle(fontSize:17)),
-                    SizedBox(height: 10),
-                    Text('50 trabajos realizados',style: TextStyle(
-                fontWeight: FontWeight.w300, color: Colors.grey[800])),
-                  ],
-                )
-              ],
-            )),
+            ResumenEmpleador(),
             BotonPostularse(),
           ],
         ));
   }
+}
+
+Widget ResumenEmpleador() {
+  return Container(
+      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 18),
+      child: Row(
+        children: [
+          CircleAvatar(
+            backgroundImage:
+                NetworkImage('https://picsum.photos/id/237/200/300'),
+            radius: 50,
+          ),
+          SizedBox(width: 10),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Empleador',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w200, color: Colors.grey[800])),
+              SizedBox(height: 10),
+              Text('Nombre del empleador', style: TextStyle(fontSize: 17)),
+              SizedBox(height: 10),
+              Text('50 trabajos realizados',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w300, color: Colors.grey[800])),
+            ],
+          )
+        ],
+      ));
 }
 
 Widget titulo() {

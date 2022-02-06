@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gigandjob_mobile_app/Views/DetallesOferta/detalles_oferta.dart';
 
 void main() {
   runApp(const MyApp());
@@ -106,7 +107,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => DetallesOfertaPage()));
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.

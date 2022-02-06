@@ -1,8 +1,26 @@
 import 'package:flutter/material.dart';
 
+import 'Views/OfferList/OfferListBLOC/offerlist/offerlist_bloc.dart';
+
 void main() {
   runApp(const MyApp());
 }
+
+/*
+class StateOfferList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers:  [
+        BlocProvider<OfferlistBloc>(
+          create:( _ ) => OfferlistBloc(),
+          child: Container(),
+        )
+      ],
+      child: MyApp()
+    );
+  }
+}*/
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

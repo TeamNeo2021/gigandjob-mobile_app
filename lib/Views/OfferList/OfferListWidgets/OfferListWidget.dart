@@ -20,11 +20,16 @@ class OfferListWidget extends StatelessWidget {
                   child: Column(children: [
                     ListTile(
                       title: Text(list_Of_Offers[index].offerName),
+                      subtitle: Text('El subtitulo u otro preview'),
+                      trailing: Icon(Icons.arrow_forward),
+                      onTap: () {
+                        print(Text('Nos vamos a Details'));
+                        //Navigator.push(context, MaterialPageRoute(builder: (contex) => OfferList())
+                      },
                     ),
                   ]),
                 );
-              }              
-              ),
+              }),
         );
       },
     );

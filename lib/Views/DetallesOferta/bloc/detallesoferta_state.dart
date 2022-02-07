@@ -9,7 +9,7 @@ abstract class DetallesofertaState extends Equatable {
 
 class DetallesofertaInitial extends DetallesofertaState {}
 
-class OfertaLoading extends DetallesofertaState {}
+class DetallesofertaInitial() extends DetallesofertaState {}
 
 class OfertaCargada extends DetallesofertaState {
   final DetallesOferta Oferta;

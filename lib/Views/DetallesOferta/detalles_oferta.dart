@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gigandjob_mobile_app/Dominio/Models/detalles_oferta_model.dart';
+
+import 'bloc/detallesoferta_bloc.dart';
 
 class DetallesOfertaPage extends StatefulWidget {
   DetallesOfertaPage({Key? key}) : super(key: key);
@@ -15,24 +19,114 @@ class _DetallesOfertaPageState extends State<DetallesOfertaPage> {
           title: Text('Detalles'),
           backgroundColor: Color.fromRGBO(124, 77, 255, 1.0),
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            CategoriaBotones(),
-            Fecha(),
-            titulo(),
-            LikesPostulaciones(),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 25, horizontal: 18),
-              child: Text(
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec posuere metus. Pellentesque accumsan blandit tortor, sed elementum metus pharetra vel. Vestibulum non viverra nisl, in hendrerit lorem. Aliquam ultricies ipsum ut velit vulputate iaculis. Curabitur rhoncus, justo id vehicula placerat, justo velit rhoncus neque, eget pharetra diam tortor sit amet augue. Mauris in sollicitudin nisl. Praesent'),
-            ),
-            ResumenEmpleador(),
-            BotonPostularse(),
-          ],
-        ));
+        body: Container(
+            alignment: Alignment.center,
+            child: BlocBuilder<DetallesofertaBloc, DetallesofertaState>(
+              builder: (context, state) {
+                if (state is OfertaCargada) {
+                  return buildColumWithData(state.Oferta);
+                } else if (state is OfertaLoading) {
+                  return buildLoading();
+                }
+                return throw NullThrownError();
+              },
+            )));
   }
+
+  Widget buildLoading() {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+  Column buildColumWithData(DetallesOferta Detalles) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        CategoriaBotones(),
+        Fecha(),
+        titulo(),
+        LikesPostulaciones(),
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 25, horizontal: 18),
+          child: Text(
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec posuere metus. Pellentesque accumsan blandit tortor, sed elementum metus pharetra vel. Vestibulum non viverra nisl, in hendrerit lorem. Aliquam ultricies ipsum ut velit vulputate iaculis. Curabitur rhoncus, justo id vehicula placerat, justo velit rhoncus neque, eget pharetra diam tortor sit amet augue. Mauris in sollicitudin nisl. Praesent'),
+        ),
+        ResumenEmpleador(),
+        BotonPostularse(),
+      ],
+    );
+  }
+}
+
+/*Widgets en orden de aparicion*/
+Widget CategoriaBotones() {
+  return Container(
+    //decoration: BoxDecoration(color: Colors.blueGrey[100]),
+    child: Padding(
+      padding: const EdgeInsets.symmetric(vertical: 0.5, horizontal: 18),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+                color: Colors.blue[200],
+                borderRadius: BorderRadius.circular(5)),
+            child: Text('Categoria',
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w300)),
+          ),
+          Row(
+            children: [
+              IconButton(
+                  onPressed: () {
+                    debugPrint('Denunciar Pulsado');
+                  },
+                  icon: Icon(Icons.favorite)),
+              IconButton(
+                  onPressed: () {
+                    debugPrint('Denunciar Pulsado');
+                  },
+                  icon: Icon(Icons.flag)),
+            ],
+          )
+        ],
+      ),
+    ),
+  );
+}
+
+Widget Fecha() {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 0.5, horizontal: 18),
+    child: Row(
+      children: [
+        Icon(
+          Icons.access_time_filled,
+          size: 15,
+          color: Colors.grey[600],
+        ),
+        SizedBox(width: 5),
+        Text('Fecha',
+            style: TextStyle(
+                fontWeight: FontWeight.w200, color: Colors.grey[800])),
+      ],
+    ),
+  );
+}
+
+Widget titulo() {
+  return Container(
+      padding: const EdgeInsets.fromLTRB(18, 0.5, 18, 25),
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border(
+                bottom: BorderSide(
+                    color: Color.fromRGBO(124, 77, 255, 1.0), width: 1))),
+        child: Text('Titulo, largo porque es para un trabajo muy importante',
+            style: TextStyle(fontSize: 23)),
+      ));
 }
 
 Widget ResumenEmpleador() {
@@ -61,19 +155,6 @@ Widget ResumenEmpleador() {
             ],
           )
         ],
-      ));
-}
-
-Widget titulo() {
-  return Container(
-      padding: const EdgeInsets.fromLTRB(18, 0.5, 18, 25),
-      child: Container(
-        decoration: BoxDecoration(
-            border: Border(
-                bottom: BorderSide(
-                    color: Color.fromRGBO(124, 77, 255, 1.0), width: 1))),
-        child: Text('Titulo, largo porque es para un trabajo muy importante',
-            style: TextStyle(fontSize: 23)),
       ));
 }
 
@@ -112,61 +193,6 @@ Widget LikesPostulaciones() {
             style: TextStyle(
                 fontWeight: FontWeight.w200, color: Colors.grey[800])),
       ],
-    ),
-  );
-}
-
-Widget Fecha() {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 0.5, horizontal: 18),
-    child: Row(
-      children: [
-        Icon(
-          Icons.access_time_filled,
-          size: 15,
-          color: Colors.grey[600],
-        ),
-        SizedBox(width: 5),
-        Text('Fecha',
-            style: TextStyle(
-                fontWeight: FontWeight.w200, color: Colors.grey[800])),
-      ],
-    ),
-  );
-}
-
-Widget CategoriaBotones() {
-  return Container(
-    //decoration: BoxDecoration(color: Colors.blueGrey[100]),
-    child: Padding(
-      padding: const EdgeInsets.symmetric(vertical: 0.5, horizontal: 18),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(5),
-            decoration: BoxDecoration(
-                color: Colors.blue[200],
-                borderRadius: BorderRadius.circular(5)),
-            child: Text('Categoria',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w300)),
-          ),
-          Row(
-            children: [
-              IconButton(
-                  onPressed: () {
-                    debugPrint('Denunciar Pulsado');
-                  },
-                  icon: Icon(Icons.favorite)),
-              IconButton(
-                  onPressed: () {
-                    debugPrint('Denunciar Pulsado');
-                  },
-                  icon: Icon(Icons.flag)),
-            ],
-          )
-        ],
-      ),
     ),
   );
 }

@@ -20,19 +20,21 @@ class _DetallesOfertaPageState extends State<DetallesOfertaPage> {
           title: Text('Detalles'),
           backgroundColor: Color.fromRGBO(124, 77, 255, 1.0),
         ),
-        body: Container(
-            alignment: Alignment.center,
-            child: BlocBuilder<DetallesofertaBloc, DetallesofertaState>(
-              builder: (context, state) {
-                if (state is OfertaCargada) {
-                  return buildColumWithData(state.Oferta);
-                } else if (state is OfertaLoading ||
-                    state is DetallesofertaInitial) {
-                  return buildLoading();
-                }
-                return throw NullThrownError();
-              },
-            )));
+        body: SingleChildScrollView(
+          child: Container(
+              alignment: Alignment.center,
+              child: BlocBuilder<DetallesofertaBloc, DetallesofertaState>(
+                builder: (context, state) {
+                  if (state is OfertaCargada) {
+                    return buildColumWithData(state.Oferta);
+                  } else if (state is OfertaLoading ||
+                      state is DetallesofertaInitial) {
+                    return buildLoading();
+                  }
+                  return throw NullThrownError();
+                },
+              )),
+        ));
   }
 
   Widget buildLoading() {
@@ -55,8 +57,7 @@ class _DetallesOfertaPageState extends State<DetallesOfertaPage> {
           child: Text(Detalles.Description),
         ),
         ResumenEmpleador(),
-        OpcionesPostulacion(),
-        BotonPostularse(),
+        OpcionesPostulacion(context, '21'),
       ],
     );
   }
@@ -181,35 +182,89 @@ Widget ResumenEmpleador() {
       ));
 }
 
-Widget OpcionesPostulacion() {
+Widget OpcionesPostulacion(BuildContext context, String OfferId) {
+  List<TextEditingController> Controllers = [];
+  TextEditingController descController = TextEditingController();
+  Controllers.add(descController);
+  TextEditingController PreController = TextEditingController();
+  Controllers.add(PreController);
+  TextEditingController DurController = TextEditingController();
+  Controllers.add(DurController);
+  final _Formkey = GlobalKey<FormState>();
   return Container(
-      padding: EdgeInsets.symmetric(vertical: 5),
-      child: Column(
-        children: <Widget>[
-          Row(children: <Widget>[
-            TextField(),
-            SizedBox(width: 20),
-            TextField()
-          ]),
-          SizedBox(height: 20)
-        ],
+      padding: EdgeInsets.fromLTRB(18, 50, 18, 20),
+      child: Form(
+        key: _Formkey,
+        child: Column(
+          children: [
+            Text('Postulación', style: TextStyle(fontSize: 20)),
+            SizedBox(height: 20),
+            TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor ingresa un presupuesto';
+                  }
+                  return null;
+                },
+                keyboardType: TextInputType.number,
+                controller: PreController,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(), labelText: 'Presupuesto')),
+            SizedBox(height: 20),
+            TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor ingresa una duración';
+                  }
+                  return null;
+                },
+                keyboardType: TextInputType.number,
+                controller: DurController,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(), labelText: 'Duracion(Días)')),
+            SizedBox(height: 20),
+            TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor ingresa una propuesta';
+                  }
+                  return null;
+                },
+                maxLines: 5,
+                controller: descController,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(), labelText: 'Propuesta')),
+            SizedBox(height: 20),
+            Container(
+              width: double.infinity,
+              child: ElevatedButton(
+                  style: ButtonStyle(
+                      fixedSize:
+                          MaterialStateProperty.all(Size(double.infinity, 20)),
+                      backgroundColor: MaterialStateProperty.all(
+                          Color.fromRGBO(124, 77, 255, 1.0))),
+                  onPressed: () {
+                    debugPrint('Postularse Presionado');
+                    if (_Formkey.currentState!.validate()) {
+                      postularse(Controllers, context, OfferId);                      
+                    }
+                  },
+                  child: Text('Postularse')),
+            )
+          ],
+        ),
       ));
 }
 
-Widget BotonPostularse() {
-  return Center(
-    child: Container(
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 18),
-      child: ElevatedButton(
-          style: ButtonStyle(
-              fixedSize: MaterialStateProperty.all(Size(double.infinity, 20)),
-              backgroundColor:
-                  MaterialStateProperty.all(Color.fromRGBO(124, 77, 255, 1.0))),
-          onPressed: () {
-            debugPrint('Postularse Presionado');
-          },
-          child: Text('Postularse')),
-    ),
-  );
+void postularse(
+    List<TextEditingController> Controllers, context, String OfferId) {
+  debugPrint('Postularse Presionado');
+  BlocProvider.of<DetallesofertaBloc>(context).add(Aplicar(
+      OfferId,
+      '11', //Falta obtenerlo cuando se implemente el login
+      '22', //Considerando quitarlo
+      '0', //Considerando Quitarlo
+      int.parse(Controllers[0].text),
+      Controllers[2].text,
+      int.parse(Controllers[2].text)));
 }

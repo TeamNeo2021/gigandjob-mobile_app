@@ -10,7 +10,7 @@ class DetallesOferta extends Equatable {
   final int Rating;
   final String Direction;
   final String Sector;
-  final String Budget;
+  final int Budget;
   final String Description;
   //final application: Application[];
   //final reports: OfferReportVO[] = []

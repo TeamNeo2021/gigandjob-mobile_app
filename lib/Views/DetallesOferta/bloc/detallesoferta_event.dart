@@ -13,8 +13,22 @@ class GetOferta extends DetallesofertaEvent {
   GetOferta(this.OfertaId) : super();    
 }
 
-class GetOferta2 extends DetallesofertaEvent {
-  final String OfertaId;
+class Aplicar extends DetallesofertaEvent {
+  final String OfferId;
+  final String employerId;
+  final String candidateId;
+  final String state;
+  final int budget;
+  final String description;
+  final int duration_days;
 
-  GetOferta2(this.OfertaId) : super();    
+    Aplicar(
+      this.OfferId,      
+      this.candidateId,
+      this.employerId,
+      this.state,    
+      this.budget,
+      this.description,
+      this.duration_days,
+    ) : super();
 }

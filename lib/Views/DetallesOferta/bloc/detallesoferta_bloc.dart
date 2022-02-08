@@ -28,7 +28,7 @@ class DetallesofertaBloc
         OfertaId,
         'Hola vengo del bloc',
         date,
-        5,
+        66,
         'En un lugar',
         'Informática',
         '50',

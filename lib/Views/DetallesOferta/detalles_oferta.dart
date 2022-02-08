@@ -14,6 +14,7 @@ class DetallesOfertaPage extends StatefulWidget {
 class _DetallesOfertaPageState extends State<DetallesOfertaPage> {
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<DetallesofertaBloc>(context).add(GetOferta('21'));
     return Scaffold(
         appBar: AppBar(
           title: Text('Detalles'),
@@ -25,7 +26,8 @@ class _DetallesOfertaPageState extends State<DetallesOfertaPage> {
               builder: (context, state) {
                 if (state is OfertaCargada) {
                   return buildColumWithData(state.Oferta);
-                } else if (state is OfertaLoading || state is DetallesofertaInitial) {
+                } else if (state is OfertaLoading ||
+                    state is DetallesofertaInitial) {
                   return buildLoading();
                 }
                 return throw NullThrownError();
@@ -44,16 +46,16 @@ class _DetallesOfertaPageState extends State<DetallesOfertaPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        CategoriaBotones(),
-        Fecha(),
+        CategoriaBotones(Detalles.Sector),
+        Fecha(Detalles.PublicationDate),
         titulo(),
-        LikesPostulaciones(),
+        LikesPostulaciones(Detalles.Rating),
         Container(
           padding: EdgeInsets.symmetric(vertical: 25, horizontal: 18),
-          child: Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec posuere metus. Pellentesque accumsan blandit tortor, sed elementum metus pharetra vel. Vestibulum non viverra nisl, in hendrerit lorem. Aliquam ultricies ipsum ut velit vulputate iaculis. Curabitur rhoncus, justo id vehicula placerat, justo velit rhoncus neque, eget pharetra diam tortor sit amet augue. Mauris in sollicitudin nisl. Praesent'),
+          child: Text(Detalles.Description),
         ),
         ResumenEmpleador(),
+        OpcionesPostulacion(),
         BotonPostularse(),
       ],
     );
@@ -61,7 +63,7 @@ class _DetallesOfertaPageState extends State<DetallesOfertaPage> {
 }
 
 /*Widgets en orden de aparicion*/
-Widget CategoriaBotones() {
+Widget CategoriaBotones(String Categoria) {
   return Container(
     //decoration: BoxDecoration(color: Colors.blueGrey[100]),
     child: Padding(
@@ -74,7 +76,7 @@ Widget CategoriaBotones() {
             decoration: BoxDecoration(
                 color: Colors.blue[200],
                 borderRadius: BorderRadius.circular(5)),
-            child: Text('Categoria',
+            child: Text(Categoria,
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w300)),
           ),
           Row(
@@ -97,7 +99,7 @@ Widget CategoriaBotones() {
   );
 }
 
-Widget Fecha() {
+Widget Fecha(DateTime fecha) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 0.5, horizontal: 18),
     child: Row(
@@ -108,7 +110,7 @@ Widget Fecha() {
           color: Colors.grey[600],
         ),
         SizedBox(width: 5),
-        Text('Fecha',
+        Text('${fecha.day}/${fecha.month}/${fecha.year}',
             style: TextStyle(
                 fontWeight: FontWeight.w200, color: Colors.grey[800])),
       ],
@@ -127,6 +129,27 @@ Widget titulo() {
         child: Text('Titulo, largo porque es para un trabajo muy importante',
             style: TextStyle(fontSize: 23)),
       ));
+}
+
+Widget LikesPostulaciones(int likes) {
+  return Container(
+    padding: EdgeInsets.symmetric(vertical: 0.5, horizontal: 18),
+    child: Row(
+      children: [
+        Icon(Icons.note_alt_sharp, size: 15, color: Colors.grey[600]),
+        SizedBox(width: 5),
+        Text('5 postulaciones',
+            style: TextStyle(
+                fontWeight: FontWeight.w200, color: Colors.grey[800])),
+        SizedBox(width: 30),
+        Icon(Icons.favorite, size: 15, color: Colors.grey[600]),
+        SizedBox(width: 5),
+        Text('$likes likes',
+            style: TextStyle(
+                fontWeight: FontWeight.w200, color: Colors.grey[800])),
+      ],
+    ),
+  );
 }
 
 Widget ResumenEmpleador() {
@@ -158,6 +181,21 @@ Widget ResumenEmpleador() {
       ));
 }
 
+Widget OpcionesPostulacion() {
+  return Container(
+      padding: EdgeInsets.symmetric(vertical: 5),
+      child: Column(
+        children: <Widget>[
+          Row(children: <Widget>[
+            TextField(),
+            SizedBox(width: 20),
+            TextField()
+          ]),
+          SizedBox(height: 20)
+        ],
+      ));
+}
+
 Widget BotonPostularse() {
   return Center(
     child: Container(
@@ -172,27 +210,6 @@ Widget BotonPostularse() {
             debugPrint('Postularse Presionado');
           },
           child: Text('Postularse')),
-    ),
-  );
-}
-
-Widget LikesPostulaciones() {
-  return Container(
-    padding: EdgeInsets.symmetric(vertical: 0.5, horizontal: 18),
-    child: Row(
-      children: [
-        Icon(Icons.note_alt_sharp, size: 15, color: Colors.grey[600]),
-        SizedBox(width: 5),
-        Text('5 postulaciones',
-            style: TextStyle(
-                fontWeight: FontWeight.w200, color: Colors.grey[800])),
-        SizedBox(width: 30),
-        Icon(Icons.favorite, size: 15, color: Colors.grey[600]),
-        SizedBox(width: 5),
-        Text(' 5 likes',
-            style: TextStyle(
-                fontWeight: FontWeight.w200, color: Colors.grey[800])),
-      ],
     ),
   );
 }

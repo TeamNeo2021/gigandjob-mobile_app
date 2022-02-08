@@ -7,12 +7,12 @@ import 'dart:convert';
 import 'package:gigandjob_mobile_app/Views/DetallesOferta/bloc/detallesoferta_bloc.dart';
 
 class OfferService {
-  String ApiRoute = 'http://192.168.1.5:3000/products';
+  String ApiRoute = 'http://localhost:3000';
 
   Future<void> EnviarAplicacion(Aplicar aplicacion) async {
     try {
       print('Enviando la vaina pa la api');
-      http.Response response = await http.post(Uri.parse(ApiRoute),
+      http.Response response = await http.post(Uri.parse('$ApiRoute/offer/applyToOffer'),
           headers: <String, String>{
             "Content-Type": "application/json; charset=UTF-8"
           },

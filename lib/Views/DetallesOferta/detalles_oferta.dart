@@ -184,12 +184,12 @@ Widget ResumenEmpleador() {
 
 Widget OpcionesPostulacion(BuildContext context, String OfferId) {
   List<TextEditingController> Controllers = [];
-  TextEditingController descController = TextEditingController();
-  Controllers.add(descController);
   TextEditingController PreController = TextEditingController();
-  Controllers.add(PreController);
   TextEditingController DurController = TextEditingController();
+  TextEditingController descController = TextEditingController();
+  Controllers.add(PreController);
   Controllers.add(DurController);
+  Controllers.add(descController);
   final _Formkey = GlobalKey<FormState>();
   return Container(
       padding: EdgeInsets.fromLTRB(18, 50, 18, 20),
@@ -243,10 +243,9 @@ Widget OpcionesPostulacion(BuildContext context, String OfferId) {
                           MaterialStateProperty.all(Size(double.infinity, 20)),
                       backgroundColor: MaterialStateProperty.all(
                           Color.fromRGBO(124, 77, 255, 1.0))),
-                  onPressed: () {
-                    debugPrint('Postularse Presionado');
+                  onPressed: () {                    
                     if (_Formkey.currentState!.validate()) {
-                      postularse(Controllers, context, OfferId);                      
+                      postularse(Controllers, context, OfferId);
                     }
                   },
                   child: Text('Postularse')),
@@ -259,12 +258,16 @@ Widget OpcionesPostulacion(BuildContext context, String OfferId) {
 void postularse(
     List<TextEditingController> Controllers, context, String OfferId) {
   debugPrint('Postularse Presionado');
-  BlocProvider.of<DetallesofertaBloc>(context).add(Aplicar(
-      OfferId,
-      '11', //Falta obtenerlo cuando se implemente el login
-      '22', //Considerando quitarlo
-      '0', //Considerando Quitarlo
-      int.parse(Controllers[0].text),
-      Controllers[2].text,
-      int.parse(Controllers[2].text)));
+  try {
+    BlocProvider.of<DetallesofertaBloc>(context).add(Aplicar(
+        OfferId,
+        '11', //Falta obtenerlo cuando se implemente el login
+        '22', //Considerando quitarlo
+        '0', //Considerando Quitarlo
+        int.parse(Controllers[0].text),
+        Controllers[2].text,
+        int.parse(Controllers[1].text)));
+  } catch (err) {
+    print('ERROR:$err');
+  }
 }

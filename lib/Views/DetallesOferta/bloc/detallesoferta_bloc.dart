@@ -7,18 +7,33 @@ import '../../../Dominio/Models/detalles_oferta_model.dart';
 part 'detallesoferta_event.dart';
 part 'detallesoferta_state.dart';
 
-class DetallesofertaBloc extends Bloc<DetallesofertaEvent, DetallesofertaState> {
-  void _OnDetallesOfertInitial(DetallesofertaInitial event, Emitter<OfertaLoading> emit){
-    emit(OfertaLoading());
+class DetallesofertaBloc
+    extends Bloc<DetallesofertaEvent, DetallesofertaState> {
+
+  DetallesofertaBloc() : super(DetallesofertaInitial()) {
+    on<GetOferta>(_OnGetOferta);
   }
-  
-  void _OnGetOferta(GetOferta event,Emitter<OfertaLoading> emit1,Emitter<OfertaCargada> emit2){
-    emit(OfertaLoading());
+
+  Future<void> _OnGetOferta(
+      GetOferta event, Emitter<DetallesofertaState> emit) async {
     final detallesOferta = await _FetchDetallesOferta(event.OfertaId);
     emit(OfertaCargada(detallesOferta));
   }
-
-  DetallesofertaBloc() : super(DetallesofertaInitial()) {
-    on<DetallesofertaInitial>(_OnDetallesOfertInitial);
-    on<GetOferta>(_OnGetOferta);
+    
+  Future<DetallesOferta> _FetchDetallesOferta(String OfertaId) {
+    DateTime now = new DateTime.now();
+    DateTime date = new DateTime(now.year, now.month, now.day);
+    return Future.delayed(Duration(seconds: 1), () {
+      return DetallesOferta(
+        OfertaId,
+        'Hola vengo del bloc',
+        date,
+        5,
+        'En un lugar',
+        'Informática',
+        '50',
+        'Descripcion larguisima',
+      );
+    });
+  }
 }

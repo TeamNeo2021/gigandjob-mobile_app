@@ -7,16 +7,14 @@ abstract class DetallesofertaEvent extends Equatable {
   List<Object> get props => [];
 }
 
-
-DetallesofertaInitial()
-class  extends DetallesofertaEvent {
-  final String OfertaId;
-
-  GetOferta(this.OfertaId) : super();
-}
 class GetOferta extends DetallesofertaEvent {
   final String OfertaId;
 
-  GetOferta(this.OfertaId) : super();
+  GetOferta(this.OfertaId) : super();    
 }
 
+class GetOferta2 extends DetallesofertaEvent {
+  final String OfertaId;
+
+  GetOferta2(this.OfertaId) : super();    
+}

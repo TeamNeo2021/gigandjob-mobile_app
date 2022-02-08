@@ -6,8 +6,8 @@ class DetallesOferta extends Equatable {
   final String titulo; //Falta
   //final State: OfferStateVO;
   //final Before_State: OfferStateVO;
-  final String PublicationDate;
-  final String Rating;
+  final DateTime PublicationDate;
+  final int Rating;
   final String Direction;
   final String Sector;
   final String Budget;

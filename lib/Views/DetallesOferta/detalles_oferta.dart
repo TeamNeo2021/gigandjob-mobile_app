@@ -25,7 +25,7 @@ class _DetallesOfertaPageState extends State<DetallesOfertaPage> {
               builder: (context, state) {
                 if (state is OfertaCargada) {
                   return buildColumWithData(state.Oferta);
-                } else if (state is OfertaLoading) {
+                } else if (state is OfertaLoading || state is DetallesofertaInitial) {
                   return buildLoading();
                 }
                 return throw NullThrownError();

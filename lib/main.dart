@@ -1,17 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'Utils/BlocObserver.dart';
-import 'Views/Login/LoginPage.dart';
-import 'Views/Main/MainPage.dart';
+import 'package:gigandjob_mobile_app/Views/DetallesOferta/detalles_oferta.dart';
 
-Future<void> main() async {
-  await BlocOverrides.runZoned(() async {
-    WidgetsFlutterBinding.ensureInitialized();
+import 'Views/DetallesOferta/bloc/detallesoferta_bloc.dart';
 
-    runApp(const MyApp());
-  }, blocObserver: SimpleBlocObserver());
+import 'Views/OfferList/OfferListBLOC/offerlist/offerlist_bloc.dart';
+import 'Views/OfferList/OfferList_screen.dart';
+
+void main() {
+  runApp(StateApp());
 }
+
+class StateApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(providers: [
+      //Aqui van todos sus archivos tipo BLOC      
+      BlocProvider<DetallesofertaBloc>(
+        create: (_) => DetallesofertaBloc(),
+        child: Container()),
+      BlocProvider<OfferlistBloc>(
+        create: (_) => OfferlistBloc(),
+      )
+    ], child: MyApp());
+  }
+}
+
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -115,7 +130,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (contex) => OfferList()));
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.

@@ -4,6 +4,8 @@ import 'package:gigandjob_mobile_app/Views/DetallesOferta/detalles_oferta.dart';
 
 import 'Views/DetallesOferta/bloc/detallesoferta_bloc.dart';
 
+import 'Views/OfferList/OfferListBLOC/offerlist/offerlist_bloc.dart';
+import 'Views/OfferList/OfferList_screen.dart';
 
 void main() {
   runApp(StateApp());
@@ -13,17 +15,14 @@ class StateApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
-      //Aqui van todos sus archivos tipo BLOC
-      /*BlocProvider<OfferlistBloc>(
-        create: (_) => OfferlistBloc(),
-        child: Container(),
-      )*/      
+      //Aqui van todos sus archivos tipo BLOC      
       BlocProvider<DetallesofertaBloc>(
         create: (_) => DetallesofertaBloc(),
         child: Container(),
+      BlocProvider<OfferlistBloc>(
+        create: (_) => OfferlistBloc(),
       )
     ], child: MyApp());
-  }
 }
 
 
@@ -130,8 +129,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => DetallesOfertaPage()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (contex) => OfferList()));
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),

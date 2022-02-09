@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'Views/OfferList/OfferListBLOC/offerlist/offerlist_bloc.dart';
 import 'Views/OfferList/OfferList_screen.dart';
+import 'Views/Profile/user_profile.dart';
 
 void main() {
   runApp(StateApp());
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: UserProfile(),
     );
   }
 }

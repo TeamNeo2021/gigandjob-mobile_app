@@ -18,11 +18,12 @@ class StateApp extends StatelessWidget {
       //Aqui van todos sus archivos tipo BLOC      
       BlocProvider<DetallesofertaBloc>(
         create: (_) => DetallesofertaBloc(),
-        child: Container(),
+        child: Container()),
       BlocProvider<OfferlistBloc>(
         create: (_) => OfferlistBloc(),
       )
     ], child: MyApp());
+  }
 }
 
 

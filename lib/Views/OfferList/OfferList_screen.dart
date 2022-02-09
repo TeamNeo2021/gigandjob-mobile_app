@@ -2,6 +2,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gigandjob_mobile_app/Widgets/NavigationBar/NavigationBar.dart';
 import 'OfferListBLOC/offerlist/offerlist_bloc.dart';
 import 'OfferListWidgets/OfferListWidget.dart';
 
@@ -24,6 +25,7 @@ class _OfferListState extends State<OfferList> {
       /*body:  Column(
         children: <Widget>[*/
       body: SafeArea(child: OfferListWidget()),
+      bottomNavigationBar: NavigationBarWidget(),
     );
   }
 }

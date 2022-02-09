@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gigandjob_mobile_app/Views/DetallesOferta/detalles_oferta.dart';
+
+import 'Views/DetallesOferta/bloc/detallesoferta_bloc.dart';
+
 import 'Views/OfferList/OfferListBLOC/offerlist/offerlist_bloc.dart';
 import 'Views/OfferList/OfferList_screen.dart';
 
@@ -11,14 +15,16 @@ class StateApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
-      //Aqui van todos sus archivos tipo BLOC
+      //Aqui van todos sus archivos tipo BLOC      
+      BlocProvider<DetallesofertaBloc>(
+        create: (_) => DetallesofertaBloc(),
+        child: Container(),
       BlocProvider<OfferlistBloc>(
         create: (_) => OfferlistBloc(),
-        child: Container(),
       )
     ], child: MyApp());
-  }
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

@@ -5,7 +5,8 @@ import 'package:gigandjob_mobile_app/Dominio/Models/detalles_oferta_model.dart';
 import 'bloc/detallesoferta_bloc.dart';
 
 class DetallesOfertaPage extends StatefulWidget {
-  DetallesOfertaPage({Key? key}) : super(key: key);
+  final String offerId;
+  DetallesOfertaPage(this.offerId, {Key? key}) : super(key: key);
 
   @override
   _DetallesOfertaPageState createState() => _DetallesOfertaPageState();
@@ -14,7 +15,7 @@ class DetallesOfertaPage extends StatefulWidget {
 class _DetallesOfertaPageState extends State<DetallesOfertaPage> {
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<DetallesofertaBloc>(context).add(GetOferta('21'));
+    BlocProvider.of<DetallesofertaBloc>(context).add(GetOferta(widget.offerId));
     return Scaffold(
         appBar: AppBar(
           title: Text('Detalles'),
@@ -49,22 +50,22 @@ class _DetallesOfertaPageState extends State<DetallesOfertaPage> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         CategoriaBotones(Detalles.Sector),
-        Fecha(Detalles.PublicationDate),
+        //Fecha(Detalles.PublicationDate),
         titulo(),
         LikesPostulaciones(Detalles.Rating),
         Container(
           padding: EdgeInsets.symmetric(vertical: 25, horizontal: 18),
           child: Text(Detalles.Description),
         ),
-        ResumenEmpleador(),
-        OpcionesPostulacion(context, '21'),
+        //ResumenEmpleador(),
+        //OpcionesPostulacion(context, '21'),
       ],
     );
   }
 }
 
 /*Widgets en orden de aparicion*/
-Widget CategoriaBotones(String Categoria) {
+Widget CategoriaBotones(int Categoria) {
   return Container(
     //decoration: BoxDecoration(color: Colors.blueGrey[100]),
     child: Padding(
@@ -77,7 +78,7 @@ Widget CategoriaBotones(String Categoria) {
             decoration: BoxDecoration(
                 color: Colors.blue[200],
                 borderRadius: BorderRadius.circular(5)),
-            child: Text(Categoria,
+            child: Text(Categoria.toString(),
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w300)),
           ),
           Row(
@@ -243,7 +244,7 @@ Widget OpcionesPostulacion(BuildContext context, String OfferId) {
                           MaterialStateProperty.all(Size(double.infinity, 20)),
                       backgroundColor: MaterialStateProperty.all(
                           Color.fromRGBO(124, 77, 255, 1.0))),
-                  onPressed: () {                    
+                  onPressed: () {
                     if (_Formkey.currentState!.validate()) {
                       postularse(Controllers, context, OfferId);
                     }

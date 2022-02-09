@@ -15,16 +15,17 @@ class StateApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
-      //Aqui van todos sus archivos tipo BLOC      
+      //Aqui van todos sus archivos tipo BLOC
       BlocProvider<DetallesofertaBloc>(
         create: (_) => DetallesofertaBloc(),
         child: Container(),
+      ),
       BlocProvider<OfferlistBloc>(
         create: (_) => OfferlistBloc(),
-      )
+      ),
     ], child: MyApp());
+  }
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

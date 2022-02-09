@@ -9,25 +9,23 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return buildLoginPage();
-    // return BlocConsumer<AuthBloc, AuthBlocState>(
-    //   bloc: BlocProvider.of<AuthBloc>(context),
-    //   listener: (context, state: AuthcState) {
-    //     if (state == AuthBlocStatus.loggedIn) { Scaffold.of(context)
-    //         ..hideCurrentSnackBar()
-    //         ..showSnackBar(
-    //           SnackBar(
-    //             content: Row(
-    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //               children: [Text('Login Failure'), Icon(Icons.error)],
-    //             ),
-    //             backgroundColor: Colors.red,
-    //           ),
-    //         );
-    //     }
-    //   },
-    //   builder: (context, state) => buildLoginPage(),
-    // );
+    return BlocConsumer<AuthBloc, AuthBlocState>(
+      bloc: BlocProvider.of<AuthBloc>(context),
+      listener: (context, state) {
+        if (state == AuthBlocStatus.loggedIn) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [Text('Login Failure'), Icon(Icons.error)],
+              ),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      },
+      builder: (context, state) => buildLoginPage(),
+    );
   }
 
   buildLoginPage() {

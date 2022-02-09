@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gigandjob_mobile_app/Views/Login/BLOC/bloc/authbloc_bloc.dart';
 import 'package:gigandjob_mobile_app/Views/Login/LoginPage.dart';
+import 'package:gigandjob_mobile_app/Views/SignUp/bloc/signup_bloc.dart';
+import 'package:gigandjob_mobile_app/Views/SignUp/signup.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -12,6 +14,9 @@ class MainPage extends StatelessWidget {
       providers: [
         BlocProvider<AuthBloc>(
           create: (_) => AuthBloc(),
+        ),
+        BlocProvider<SignupBloc>(
+          create: (_) => SignupBloc(),
         ),
       ],
       child: LoginPage(),

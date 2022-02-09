@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gigandjob_mobile_app/Views/SignUp/signup.dart';
 
 import 'BLOC/bloc/authbloc_bloc.dart';
 
@@ -154,13 +155,26 @@ class LoginPage extends StatelessWidget {
                                 password: passwordController.text)),
                       ),
                       SizedBox(
-                        height: 70,
+                        height: 10,
                       ),
-                      Text(
-                        "Forgot Password?",
-                        style:
-                            TextStyle(color: Color.fromRGBO(143, 148, 251, 1)),
-                      ),
+                      MaterialButton(
+                          height: 50,
+                          color: Colors.lightBlue,
+                          child: Center(
+                            child: Text(
+                              "Sign Up",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SignupPage()),
+                            );
+                          }),
                     ],
                   ),
                 )

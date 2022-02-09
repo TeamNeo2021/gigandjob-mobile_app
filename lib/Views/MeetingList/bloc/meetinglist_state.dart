@@ -9,7 +9,7 @@ abstract class MeetinglistState extends Equatable {
 
 class MeetinglistInitial extends MeetinglistState {}
 
-class MeetingsLoaded {
+class MeetingsLoaded extends MeetinglistState{
   final List<Meeting> Meetings;
 
   MeetingsLoaded(this.Meetings) : super();

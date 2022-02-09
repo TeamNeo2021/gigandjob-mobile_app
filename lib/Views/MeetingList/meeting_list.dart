@@ -26,7 +26,7 @@ class _MeetingListState extends State<MeetingList> {
               child: BlocBuilder<MeetinglistBloc, MeetinglistState>(
                 builder: (context, state) {
                   if (state is MeetingsLoaded) {
-                    return ListaMeetings(state);
+                    return ListaMeetings(state.Meetings);
                   } else if (state is MeetinglistInitial) {
                     return buildLoading();
                   }

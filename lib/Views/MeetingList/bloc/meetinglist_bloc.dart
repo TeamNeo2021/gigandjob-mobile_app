@@ -31,7 +31,7 @@ class MeetinglistBloc extends Bloc<MeetinglistEvent, MeetinglistState> {
       );
     });
   }  
-  }
+  
   Future<void> _OnAcceptMeeting(
       AcceptMeeting event, Emitter<MeetinglistState> emit) async {
     print('hola2');

@@ -15,29 +15,30 @@ class MeetinglistBloc extends Bloc<MeetinglistEvent, MeetinglistState> {
 
   Future<void> _OnGetAllMeetings(
       GetAllMeetings event, Emitter<MeetinglistState> emit) async {
+    print('Buscando meetings');
     DateTime now = new DateTime.now();
     DateTime date = new DateTime(now.year, now.month, now.day);
     List<Meeting> Meetings = [];
-    return Future.delayed(Duration(seconds: 1), () {
-      return Meetings.add(Meeting(
-          event.CandidateId, 
-          '111', 
-          '111', 
-          '111', 
-          'Descipcion especial de la oferta', 
-          date, 
-          const {'latitude':01,'logitude':012}
-        )
-      );
+    await Future.delayed(Duration(seconds: 1), () {
+      Meetings.add(Meeting(
+          event.CandidateId,
+          '111',
+          '111',
+          '111',
+          'Descipcion especial de la oferta',
+          date,
+          const {'latitude': 01, 'logitude': 012}));
     });
-  }  
-  
+    emit(MeetingsLoaded(Meetings));
+  }
+
   Future<void> _OnAcceptMeeting(
       AcceptMeeting event, Emitter<MeetinglistState> emit) async {
     print('hola2');
   }
+
   Future<void> _OnRejectMeeting(
-    RejectMeeting event, Emitter<MeetinglistState> emit) async {
+      RejectMeeting event, Emitter<MeetinglistState> emit) async {
     print('hola3');
   }
 }

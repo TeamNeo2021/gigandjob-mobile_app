@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gigandjob_mobile_app/Views/DetallesOferta/detalles_oferta.dart';
+import 'package:gigandjob_mobile_app/Views/MeetingList/meeting_list.dart';
 
 import 'Views/DetallesOferta/bloc/detallesoferta_bloc.dart';
 
+import 'Views/MeetingList/bloc/meetinglist_bloc.dart';
 import 'Views/OfferList/OfferListBLOC/offerlist/offerlist_bloc.dart';
 import 'Views/OfferList/OfferList_screen.dart';
 
@@ -21,6 +23,9 @@ class StateApp extends StatelessWidget {
         child: Container()),
       BlocProvider<OfferlistBloc>(
         create: (_) => OfferlistBloc(),
+      ),
+      BlocProvider<MeetinglistBloc>(
+        create: (_) => MeetinglistBloc(),
       )
     ], child: MyApp());
   }
@@ -131,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (contex) => OfferList()));
+              context, MaterialPageRoute(builder: (contex) => MeetingList()));
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),

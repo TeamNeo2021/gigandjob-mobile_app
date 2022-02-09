@@ -21,51 +21,64 @@ class _MeetingListState extends State<MeetingList> {
         centerTitle: true,
         backgroundColor: Colors.redAccent,
       ),
-      body:Container(
-              alignment: Alignment.center,
-              child: BlocBuilder<MeetinglistBloc, MeetinglistState>(
-                builder: (context, state) {
-                  if (state is MeetingsLoaded) {
-                    return ListaMeetings(state.Meetings);
-                  } else if (state is MeetinglistInitial) {
-                    return buildLoading();
-                  }
-                  return throw NullThrownError();
-                },
-              )),
+      body: Container(
+          alignment: Alignment.center,
+          child: BlocBuilder<MeetinglistBloc, MeetinglistState>(
+            builder: (context, state) {
+              if (state is MeetingsLoaded) {
+                return ListaMeetings(state.Meetings);
+              } else if (state is MeetinglistInitial) {
+                return buildLoading();
+              }
+              return throw NullThrownError();
+            },
+          )),
       bottomNavigationBar: NavigationBarWidget(),
     );
   }
 }
 
 Widget buildLoading() {
-    return Center(
-      child: CircularProgressIndicator(),
-    );
-  }
+  return Center(
+    child: CircularProgressIndicator(),
+  );
+}
 
-Widget ListaMeetings(List<Meeting> Meetings){
+Widget ListaMeetings(List<Meeting> Meetings) {
   return Container(
-          child: ListView.builder(
-              padding: EdgeInsets.all(10),
-              itemCount: Meetings.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  color: Colors.amber[200],
+    child: ListView.builder(
+        padding: EdgeInsets.all(10),
+        itemCount: Meetings.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Card(
+            color: Colors.amber[200],
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(children: [
-                    ListTile(
-                      title: Text(Meetings[index].description),
-                      subtitle: Text('$Meetings[index].date'),
-                      trailing: Icon(Icons.arrow_forward),
-                      onTap: () {
-                        print(Text('Nos vamos a Details'));
-                        //Navigator.push(context, MaterialPageRoute(builder: (contex) => OfferList())
+                    Text(Meetings[index].description),
+                    Text('${Meetings[index].date}'),
+                  ],),
+                ),
+                SizedBox(width:5),                
+                Row(
+                  children: [
+                    IconButton(
+                          onPressed: () {
+                            print('EntrevistaAceptada');
+                          },
+                          icon: Icon(Icons.check)),
+                    IconButton(
+                      onPressed: () {
+                        print('EntrevistaRechazada');
                       },
-                    ),
-                    IconButton(onPressed: (){print('EntrevistaAceptada');}, icon: Icon(Icons.check)),
-                    IconButton(onPressed: (){print('EntrevistaRechazada');}, icon: Icon(Icons.cancel)),                    
-                  ]),
-                );
-              }),
-        );
+                      icon: Icon(Icons.cancel)),
+                  ],
+                ),
+                ],              
+            ),
+          );
+        }),
+  );
 }

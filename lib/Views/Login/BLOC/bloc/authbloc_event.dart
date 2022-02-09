@@ -9,6 +9,17 @@ class AuthSucceedEvent extends AuthBlocEvent {
   List<Object> get props => [];
 }
 
+class AuthOnLoginEvent extends AuthBlocEvent {
+  final email;
+  final password;
+  AuthOnLoginEvent({
+    @required this.email,
+    @required this.password,
+  });
+  @override
+  List<Object> get props => [];
+}
+
 class AuthFailedEvent extends AuthBlocEvent {
   AuthFailedEvent();
   @override

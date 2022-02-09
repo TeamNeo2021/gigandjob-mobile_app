@@ -9,28 +9,28 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return buildLoginPage();
-    // return BlocConsumer<AuthBloc, AuthBlocState>(
-    //   bloc: BlocProvider.of<AuthBloc>(context),
-    //   listener: (context, state: AuthcState) {
-    //     if (state == AuthBlocStatus.loggedIn) { Scaffold.of(context)
-    //         ..hideCurrentSnackBar()
-    //         ..showSnackBar(
-    //           SnackBar(
-    //             content: Row(
-    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //               children: [Text('Login Failure'), Icon(Icons.error)],
-    //             ),
-    //             backgroundColor: Colors.red,
-    //           ),
-    //         );
-    //     }
-    //   },
-    //   builder: (context, state) => buildLoginPage(),
-    // );
+    // Thisreturn buildLoginPage();
+    return BlocConsumer<AuthBloc, AuthBlocState>(
+      bloc: BlocProvider.of<AuthBloc>(context),
+      listener: (context, state) {
+        if (state == AuthBlocStatus.loggedIn) {
+          //travel to Main
+          Navigator.of(context).pushReplacementNamed('/main');
+        }
+      },
+      builder: (context, state) => buildLoginPage(context),
+    );
   }
 
-  buildLoginPage() {
+  travelToMain() {
+    return Center(
+      child: Text("MAIN PAGE"),
+    );
+  }
+
+  buildLoginPage(context) {
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -112,9 +112,10 @@ class LoginPage extends StatelessWidget {
                                   border: Border(
                                       bottom: BorderSide(color: Colors.grey))),
                               child: TextField(
+                                controller: emailController,
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: "Email or Phone number",
+                                    hintText: "Email",
                                     hintStyle:
                                         TextStyle(color: Colors.grey[400])),
                               ),
@@ -122,6 +123,7 @@ class LoginPage extends StatelessWidget {
                             Container(
                               padding: EdgeInsets.all(8.0),
                               child: TextField(
+                                controller: passwordController,
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
                                     hintText: "Password",
@@ -135,14 +137,9 @@ class LoginPage extends StatelessWidget {
                       SizedBox(
                         height: 30,
                       ),
-                      Container(
+                      MaterialButton(
                         height: 50,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            gradient: LinearGradient(colors: [
-                              Color.fromRGBO(143, 148, 251, 1),
-                              Color.fromRGBO(143, 148, 251, .6),
-                            ])),
+                        color: Colors.blue,
                         child: Center(
                           child: Text(
                             "Login",
@@ -151,6 +148,10 @@ class LoginPage extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
+                        onPressed: () => BlocProvider.of<AuthBloc>(context).add(
+                            AuthOnLoginEvent(
+                                email: emailController.text,
+                                password: passwordController.text)),
                       ),
                       SizedBox(
                         height: 70,

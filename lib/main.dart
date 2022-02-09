@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'Utils/BlocObserver.dart';
 import 'Views/Login/LoginPage.dart';
+import 'Views/Main/MainPage.dart';
 
 Future<void> main() async {
   await BlocOverrides.runZoned(() async {
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
           // is not restarted.
           primarySwatch: Colors.blue,
         ),
-        home: LoginPage());
+        home: MainPage());
   }
 }
 

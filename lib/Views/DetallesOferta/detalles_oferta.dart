@@ -58,7 +58,7 @@ class _DetallesOfertaPageState extends State<DetallesOfertaPage> {
           child: Text(Detalles.Description),
         ),
         //ResumenEmpleador(),
-        //OpcionesPostulacion(context, '21'),
+        OpcionesPostulacion(context, '21'),
       ],
     );
   }

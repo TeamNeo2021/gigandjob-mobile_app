@@ -3,14 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gigandjob_mobile_app/Dominio/Models/Offer.dart';
 import 'package:gigandjob_mobile_app/Views/OfferList/OfferListBLOC/offerlist/offerlist_bloc.dart';
 
-class NavigationBarWidget extends StatelessWidget {
-  final screens = [];
-
+class NavigationBarWidget extends StatefulWidget {
   //Statefullwidget?
+  @override
+  State<NavigationBarWidget> createState() => _NavigationBarWidgetState();
+}
+
+class _NavigationBarWidgetState extends State<NavigationBarWidget> {
   @override
   Widget build(BuildContext context) {
     int indice = 0;
-    //body: screens[current]
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.red,
@@ -20,7 +22,7 @@ class NavigationBarWidget extends StatelessWidget {
       selectedFontSize: 15,
       unselectedFontSize: 10,
       currentIndex: indice,
-      onTap: (index) => /*setState(() =>*/ indice = index /*)*/,
+      onTap: (index) => setState(() => indice = index),
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.cases_rounded),

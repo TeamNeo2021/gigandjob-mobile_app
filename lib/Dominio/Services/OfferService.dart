@@ -70,4 +70,25 @@ class OfferService {
     }
   }
 
+  Future<List<OfferDTO>> FetchOfertas() async {
+    dynamic data;
+    List<OfferDTO> lista = [];
+    try {
+      http.Response response = await http.get(Uri.parse('$ApiRoute/getall'));
+      print(response.body);
+      data = json.decode(response.body);
+      for (var dato in data) {
+        lista.add(new OfferDTO(
+          dato['OfferId'],
+          dato['Rating'],
+          dato['Sector'],
+          dato['Description'],
+        ));
+      }
+      return lista;
+    } catch (err) {
+      throw err;
+    }
+  }
+
 }

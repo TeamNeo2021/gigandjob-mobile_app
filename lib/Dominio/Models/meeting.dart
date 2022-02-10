@@ -2,13 +2,13 @@
 import 'package:equatable/equatable.dart';
 
 class Meeting extends Equatable{
-  final String candidate;
-  final String employer;
+  final Map candidate;
+  final Map employer;
   final String id;
   final String state;
   final String description;
   final DateTime date;
-  final Object location;
+  final Map location;
 
   Meeting(
     this.candidate,

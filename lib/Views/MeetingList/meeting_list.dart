@@ -56,27 +56,35 @@ Widget ListaMeetings(List<Meeting> Meetings) {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Column(children: [
-                    Text(Meetings[index].description),
-                    Text('${Meetings[index].date}'),
-                  ],),
+                  child: Column(
+                    children: [
+                      Text(Meetings[index].description),
+                      Text('${Meetings[index].date}'),
+                    ],
+                  ),
                 ),
-                SizedBox(width:5),                
+                SizedBox(width: 5),
                 Row(
                   children: [
                     IconButton(
-                          onPressed: () {
-                            print('EntrevistaAceptada');
-                          },
-                          icon: Icon(Icons.check)),
-                    IconButton(
-                      onPressed: () {
-                        print('EntrevistaRechazada');
-                      },
-                      icon: Icon(Icons.cancel)),
+                        onPressed: () {
+                          BlocProvider.of<MeetinglistBloc>(context)
+                              .add(AcceptMeeting(
+                            Meetings[index].id,
+                            Meetings[index].candidate['canditeId'],
+                          ));
+                        },
+                        icon: Icon(Icons.check)),
+                    IconButton(onPressed: () {
+                      BlocProvider.of<MeetinglistBloc>(context)
+                              .add(RejectMeeting(
+                            Meetings[index].id,
+                            Meetings[index].candidate['canditeId'],
+                          ));
+                    }, icon: Icon(Icons.cancel)),
                   ],
                 ),
-                ],              
+              ],
             ),
           );
         }),

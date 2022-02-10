@@ -8,9 +8,11 @@ part 'authbloc_event.dart';
 part 'authbloc_state.dart';
 
 class AuthBloc extends Bloc<AuthBlocEvent, AuthBlocState> {
-  final authRepository = AuthService();
+  final AuthRepository authRepository;
 
-  AuthBloc() : super(AuthblocInitial()) {
+  AuthBloc({
+    required this.authRepository,
+  }) : super(AuthblocInitial()) {
     // on<AuthblocEvent>((event, emit) {
     //   // TODO: implement event handler
     // });
@@ -22,13 +24,19 @@ class AuthBloc extends Bloc<AuthBlocEvent, AuthBlocState> {
 
   Future onAuthOnLoginEvent(
       AuthOnLoginEvent event, Emitter<AuthBlocState> emit) async {
+    print('ON AUTH LOGIN EVENT');
     try {
-      this
+      final response = await this
           .authRepository
           .login(new AuthEntity(email: event.email, password: event.password));
-      emit(AuthBlocState(status: AuthBlocStatus.initial));
+      print('onAuthOnLoginEvent response: $response');
+      if (response) {
+        return emit(AuthBlocState(status: AuthBlocStatus.loggedIn));
+      } else {
+        return emit(AuthBlocState(status: AuthBlocStatus.failure));
+      }
     } catch (e) {
-      emit(AuthBlocState(status: AuthBlocStatus.failure));
+      return emit(AuthBlocState(status: AuthBlocStatus.failure));
     }
   }
 

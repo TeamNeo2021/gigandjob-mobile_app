@@ -1,6 +1,10 @@
 part of 'authbloc_bloc.dart';
 
-enum AuthBlocStatus { initial, loggedIn, failure }
+enum AuthBlocStatus {
+  initial,
+  loggedIn,
+  failure,
+}
 
 class AuthBlocState extends Equatable {
   const AuthBlocState({

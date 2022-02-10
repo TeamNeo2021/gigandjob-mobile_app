@@ -17,10 +17,12 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     });
   }
 
-  Future onSignupOnRegisterEvent(
+  onSignupOnRegisterEvent(
       SignupOnRegisterEvent event, Emitter<SignupState> emit) async {
+    print('AAAAAAAAAAAA');
     try {
-      repo.signup(RegisterEntity(
+      print('222222222222222');
+      await repo.signup(RegisterEntity(
           email: event.email,
           password: event.password,
           bday: event.bday,

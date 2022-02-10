@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gigandjob_mobile_app/Dominio/Repositories/register_repository.dart';
+import 'package:gigandjob_mobile_app/Dominio/Services/register_service.dart';
 
 import 'bloc/signup_bloc.dart';
 
@@ -222,23 +224,54 @@ class Signup extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                        onPressed: () {
-                          if (true) {
-                            BlocProvider.of<SignupBloc>(context).add(
-                                SignupOnRegisterEvent(
+                        onPressed: () async {
+                          final bday = bdayController.text.split('-');
+                          final bdayCorrect =
+                              bday[2] + '-' + bday[1] + '-' + bday[0];
+                          if (DateTime.parse(bdayCorrect).year <= 2003) {
+                            final response = await RegisterService().signup(
+                                RegisterEntity(
                                     email: emailController.text,
                                     password: passwordController.text,
                                     bday: bdayController.text,
-                                    name: nameController.text.split(' ')[0],
                                     lastname:
                                         nameController.text.split(' ').length >
                                                 1
                                             ? nameController.text.split(' ')[1]
-                                            : nameController.text.split(' ')[0],
+                                            : ' ',
                                     latitude: '10.4886',
                                     longitud: '-66.8948',
+                                    name: nameController.text.split(' ')[0],
                                     phone: phoneController.text));
+
+                            if (response.statusCode == 201) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Success')),
+                              );
+                              Navigator.pop(context);
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Error')),
+                              );
+                            }
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Error')),
+                            );
                           }
+                          /* BlocProvider.of<SignupBloc>(context).add(
+                              SignupOnRegisterEvent(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                  bday: bdayController.text,
+                                  name: nameController.text.split(' ')[0],
+                                  lastname:
+                                      nameController.text.split(' ').length > 1
+                                          ? nameController.text.split(' ')[1]
+                                          : ' ',
+                                  latitude: '10.4886',
+                                  longitud: '-66.8948',
+                                  phone: phoneController.text)); */
                         }),
                     const SizedBox(
                       height: 70,

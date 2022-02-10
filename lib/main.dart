@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:gigandjob_mobile_app/Views/DetallesOferta/detalles_oferta.dart';
-
 import 'Views/DetallesOferta/bloc/detallesoferta_bloc.dart';
-
 import 'Views/Main/MainPage.dart';
 import 'Views/OfferList/OfferListBLOC/offerlist/offerlist_bloc.dart';
-import 'Views/OfferList/OfferList_screen.dart';
 
 void main() {
   runApp(StateApp());
 }
 
+// ignore: use_key_in_widget_constructors
 class StateApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -23,6 +19,7 @@ class StateApp extends StatelessWidget {
       BlocProvider<OfferlistBloc>(
         create: (_) => OfferlistBloc(),
       )
+      // ignore: prefer_const_constructors
     ], child: MyApp());
   }
 }
@@ -35,23 +32,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'Git & Job',
         theme: ThemeData(
-          // This is the theme of your application.
-          //
-          // Try running your application with "flutter run". You'll see the
-          // application has a blue toolbar. Then, without quitting the app, try
-          // changing the primarySwatch below to Colors.green and then invoke
-          // "hot reload" (press "r" in the console where you ran "flutter run",
-          // or simply save your changes to "hot reload" in a Flutter IDE).
-          // Notice that the counter didn't reset back to zero; the application
-          // is not restarted.
           primarySwatch: Colors.blue,
         ),
+        // ignore: prefer_const_constructors
         home: MainPage());
   }
 }
 
+/* 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
@@ -139,3 +129,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+ */

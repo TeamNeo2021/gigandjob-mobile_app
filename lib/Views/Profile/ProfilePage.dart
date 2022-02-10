@@ -8,6 +8,15 @@ class ProfilePage extends StatefulWidget {
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
+
+  /*appBar: AppBar(
+        title: Text(
+          '      Gig&Job',
+          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+        ),
+        foregroundColor: Colors.deepPurple[800],
+        backgroundColor: Colors.white,
+      ),*/
 }
 
 class _ProfilePageState extends State<ProfilePage> {

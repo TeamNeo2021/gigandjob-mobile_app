@@ -31,6 +31,14 @@ import 'Views/SignUp/bloc/signup_bloc.dart';
 //   }
 // }
 
+Future<void> main() async {
+  await BlocOverrides.runZoned(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    runApp(const MyApp());
+  }, blocObserver: SimpleBlocObserver());
+}
+
 class MyApp extends StatelessWidget {
   final base_url =
       'https://salvacion-git-job.herokuapp.com/'; //el url se otorga mediante inyeccion de dependencia

@@ -12,7 +12,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
   static List<Widget> _pages = <Widget>[
     OfferListPage(),
     MeetingListPage(),
-    ProfilePage()
+    UserProfile()
     // {
     //   page: Page,
     //   icon: Icon.name,

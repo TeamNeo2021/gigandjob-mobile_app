@@ -16,8 +16,13 @@ class DetallesofertaBloc
 
   Future<void> _OnGetOferta(
       GetOferta event, Emitter<DetallesofertaState> emit) async {
-    final detallesOferta = await _FetchDetallesOferta(event.OfertaId);
-    emit(OfertaCargada(detallesOferta));
+    OfferService service = new OfferService();
+    try {
+      final detallesOferta = await service.FetchDetallesOferta(event.OfertaId);
+      emit(OfertaCargada(detallesOferta));
+    } on Exception catch (e) {
+      print(e);
+    }
   }
 
   Future<void> _OnAplicar(
@@ -26,7 +31,7 @@ class DetallesofertaBloc
     await service.EnviarAplicacion(event);
   }
 
-  Future<DetallesOferta> _FetchDetallesOferta(String OfertaId) {
+  /* Future<DetallesOferta> _FetchDetallesOferta(String OfertaId) {
     DateTime now = new DateTime.now();
     DateTime date = new DateTime(now.year, now.month, now.day);
     return Future.delayed(Duration(seconds: 1), () {
@@ -38,9 +43,8 @@ class DetallesofertaBloc
         'En un lugar',
         'Informática',
         50,
-          'Descripcion laruisima',
-        );
-      });
-  }  
-}  
-      
+        'Descripcion laruisima',
+      );
+    });
+  }*/
+}

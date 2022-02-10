@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class MeetingListPage extends StatefulWidget {
-  MeetingListPage({Key? key}) : super(key: key);
+class AplicationsListPage extends StatefulWidget {
+  AplicationsListPage({Key? key}) : super(key: key);
 
   @override
-  State<MeetingListPage> createState() => _MeetingListPageState();
+  State<AplicationsListPage> createState() => AplicationsListPageState();
 }
 
-class _MeetingListPageState extends State<MeetingListPage> {
+class AplicationsListPageState extends State<AplicationsListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +23,8 @@ class _MeetingListPageState extends State<MeetingListPage> {
       ),
       /* body:  Column(
         children: <Widget>[*/
-      body: SafeArea(child: Text('Meeting')), //aqui va tu meetinglistwidget
+      body: SafeArea(
+          child: Text('AplicationsListPage')), //aqui va tu aplicationlistwidget
     );
   }
 }

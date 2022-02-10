@@ -8,7 +8,9 @@ import 'Widgets/profile_widget.dart';
 
 class UserProfile extends StatefulWidget {
   @override
+
   _UserProfileState createState() => _UserProfileState();
+
 }
 
 class _UserProfileState extends State<UserProfile> {

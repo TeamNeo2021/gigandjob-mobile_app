@@ -1,38 +1,47 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gigandjob_mobile_app/Views/Login/BLOC/bloc/authbloc_bloc.dart';
+import 'package:gigandjob_mobile_app/Views/Login/BLOC/authbloc_bloc.dart';
 import 'package:gigandjob_mobile_app/Views/Login/LoginPage.dart';
-import 'package:gigandjob_mobile_app/Views/SignUp/bloc/signup_bloc.dart';
-import 'package:gigandjob_mobile_app/Views/SignUp/signup.dart';
+import 'package:gigandjob_mobile_app/Widgets/BottomNavBar/bloc/bottomnavbar_bloc.dart';
+import 'package:gigandjob_mobile_app/Widgets/CustomBottonNavigationBar.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
   @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<AuthBloc>(
-          create: (_) => AuthBloc(),
-        ),
-        BlocProvider<SignupBloc>(
-          create: (_) => SignupBloc(),
-        ),
-      ],
-      child: LoginPage(),
+    return BlocBuilder<AuthBloc, AuthBlocState>(
+      bloc: BlocProvider.of<AuthBloc>(context),
+      // listener: (context, state) {},
+      builder: (context, state) {
+        if (state.status == AuthBlocStatus.loggedIn) {
+          //travel to Main
+          return buildHomePage();
+        } else {
+          return LoginPage();
+        }
+      },
     );
   }
 
-  // isAuthenticated(){
-  //   return BlocListener{
-  //     bloc: BlocProvider.of<AuthBloc>(context),
-  //     listener: (context, state){
-  //       if(state is Authenticated){
-  //         Navigator.pushReplacement(context, CupertinoPageRoute(builder: (context) => LoginPage()));
-  //       }
-  //     },
-  //     child: LoginPage(),
-  //   };
-
-  // }
+  buildHomePage() {
+    return BlocBuilder<BottomNavBarBloc, BottomNavBarState>(
+      builder: (context, state) {
+        return Scaffold(
+            // body: BlocBuilder<BottomNavBarBloc, BottomNavBarState>(
+            //   builder: (context, currentTab) {
+            //     return currentTab.page;
+            //   },
+            // ),
+            body: state.pageWidget,
+            bottomNavigationBar: CustomBottomNavigationBar());
+      },
+    );
+  }
 }

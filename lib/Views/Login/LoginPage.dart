@@ -3,39 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gigandjob_mobile_app/Views/SignUp/signup.dart';
 
-import 'BLOC/bloc/authbloc_bloc.dart';
+import 'BLOC/authbloc_bloc.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // Thisreturn buildLoginPage();
-    return BlocConsumer<AuthBloc, AuthBlocState>(
-      bloc: BlocProvider.of<AuthBloc>(context),
-      listener: (context, state) {
-        if (state == AuthBlocStatus.loggedIn) {
-          //travel to Main
-          Navigator.of(context).pushReplacementNamed('/main');
-        }
-      },
-      builder: (context, state) => buildLoginPage(context),
-    );
-  }
-
-  travelToMain() {
-    return Center(
-      child: Text("MAIN PAGE"),
-    );
-  }
-
-  buildLoginPage(context) {
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
-    return Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Container(
+    {
+      final emailController = TextEditingController();
+      final passwordController = TextEditingController();
+      return Scaffold(
+          backgroundColor: Colors.white,
+          body: SingleChildScrollView(
+              child: Container(
             child: Column(
               children: <Widget>[
                 Container(
@@ -180,7 +161,7 @@ class LoginPage extends StatelessWidget {
                 )
               ],
             ),
-          ),
-        ));
+          )));
+    }
   }
 }

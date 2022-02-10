@@ -7,7 +7,7 @@ import 'dart:convert';
 import 'package:gigandjob_mobile_app/Views/DetallesOferta/bloc/detallesoferta_bloc.dart';
 
 class OfferService {
-  String ApiRoute = 'http://localhost:3000';
+  String ApiRoute = 'https://salvacion-git-job.herokuapp.com';
 
   Future<void> EnviarAplicacion(Aplicar aplicacion) async {
     try {
@@ -34,7 +34,7 @@ class OfferService {
     dynamic data;
     DetallesOferta detalles;
     try {
-      http.Response response = await http.get(Uri.parse(ApiRoute));
+      http.Response response = await http.get(Uri.parse('$ApiRoute/$OfferId/getone'));
       print(response.body);
       data = json.decode(response.body);
       detalles = new DetallesOferta(
@@ -51,62 +51,23 @@ class OfferService {
       throw err;
     }
   }
-}
 
-
-/*
-class _HomePageState extends State<HomePage> {
-  String ApiRoute = 'http://192.168.1.5:3000/products';
-  List<dynamic> data = [];
-  List productsData = [];
-  getProducts() async {
+  Future<void> DenunciarOferta(String OfferId) async {
+    dynamic data;
+    DetallesOferta detalles;
     try {
-      http.Response response = await http.get(Uri.parse(ApiRoute));
-      debugPrint(response.body);
-      data = json.decode(response.body);
-      setState(() {
-        productsData = data;
-      });
-    } catch (err) {
-      debugPrint('Error ${err}');
-    }
-  } 
-
-class FormPage extends StatelessWidget {
-  final Map updateItem;
-  String ApiRoute = 'http://192.168.1.5:3000/products';
-  FormPage(this.updateItem, {Key? key}) : super(key: key);
-
-  CreateProduct(Nombre, Descripcion, Precio) async {
-    try {
-      debugPrint('Crear Presioando');
-      http.Response response = await http.post(Uri.parse(ApiRoute),
+      http.Response response = await http.post(Uri.parse('$ApiRoute/$OfferId/getone'),
           headers: <String, String>{
             "Content-Type": "application/json; charset=UTF-8"
           },
           body: jsonEncode(<String, String>{
-            "title": Nombre,
-            "description": Descripcion,
-            "price": Precio
+            'reportedOffer': OfferId,
+            'reason':'Esta oferta es ofensiva'
           }));
+      print(response.body);
     } catch (err) {
-      debugPrint('Error ${err}');
+      throw err;
     }
   }
 
-  updateProduct(id, Nombre, Descripcion, Precio) async {
-    try {
-      debugPrint('Crear Presioando');
-      http.Response response = await http.patch(Uri.parse("${ApiRoute}/${id}"),
-          headers: <String, String>{
-            "Content-Type": "application/json; charset=UTF-8"
-          },
-          body: jsonEncode(<String, String>{
-            "title": Nombre,
-            "description": Descripcion,
-            "price": Precio
-          }));
-    } catch (err) {
-      debugPrint('Error ${err}');
-    }
-  }*/
+}

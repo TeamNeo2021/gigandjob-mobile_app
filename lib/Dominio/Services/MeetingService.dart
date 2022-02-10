@@ -10,25 +10,33 @@ import 'dart:convert';
 import 'package:gigandjob_mobile_app/Views/DetallesOferta/bloc/detallesoferta_bloc.dart';
 
 class MeetingService {
-  String ApiRoute = 'http://localhost:3000';
+  // ignore: non_constant_identifier_names
+  String ApiRoute = 'https://salvacion-git-job.herokuapp.com';
+  //String ApiRoute = 'http://192.168.1.119:5000';
 
   Future<List<Meeting>> getMeetings(String candidateId) async {
     dynamic data;
+    dynamic Estado;
     List<Meeting> lista = [];
     try {
-      http.Response response = await http
-          .get(Uri.parse('$ApiRoute/meeting/$candidateId/getall'));
+      http.Response response =
+          await http.get(Uri.parse('$ApiRoute/meeting/$candidateId/getall'));
       print(response.body);
       data = json.decode(response.body);
       for (var dato in data) {
+        Estado = dato['state'];
+        if (Estado is int) {
+          Estado = stateNumberToString(Estado);
+        }
+        print(data);
         lista.add(new Meeting(
           dato['candidate'],
           dato['employer'],
           dato['id'],
-          dato['state'],
+          Estado,
           dato['description'],
           DateTime.now(), //new DateTime(dato['date']),
-          dato['location'],
+          //dato['location'],
         ));
       }
       return lista;
@@ -39,6 +47,7 @@ class MeetingService {
 
   Future<void> acceptMeeting(AcceptMeeting event) async {
     try {
+      print('llamando a la api');
       http.Response response = await http.put(
           Uri.parse('$ApiRoute/meeting/accept'),
           headers: <String, String>{
@@ -48,6 +57,7 @@ class MeetingService {
             'candidateId': event.candidateId,
             'meetingId': event.meetingId,
           }));
+      print(response.body);    
     } catch (err) {
       throw err;
     }
@@ -64,8 +74,31 @@ class MeetingService {
             'candidateId': event.candidateId,
             'meetingId': event.meetingId,
           }));
+      print(response.body);    
     } catch (err) {
       throw err;
+    }
+  }
+
+  String stateNumberToString(int state) {
+    switch (state) {
+      case 0:
+        return 'Active';
+        break;
+      case 1:
+        return 'Suspended';
+        break;
+      case 2:
+        return 'Canceled';
+        break;
+      case 3:
+        return 'Pending';
+        break;
+      case 4:
+        return 'Rejected';
+        break;
+      default:
+        return 'Pending';
     }
   }
 }

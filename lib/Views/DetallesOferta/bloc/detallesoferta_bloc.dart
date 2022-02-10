@@ -12,11 +12,13 @@ class DetallesofertaBloc
   DetallesofertaBloc() : super(DetallesofertaInitial()) {
     on<GetOferta>(_OnGetOferta);
     on<Aplicar>(_OnAplicar);
+    on<Denunciar>(_OnDenunciar);
   }
 
   Future<void> _OnGetOferta(
       GetOferta event, Emitter<DetallesofertaState> emit) async {
-    final detallesOferta = await _FetchDetallesOferta(event.OfertaId);
+    OfferService service = new OfferService();
+    final detallesOferta = await service.FetchDetallesOferta(event.OfertaId);
     emit(OfertaCargada(detallesOferta));
   }
 
@@ -26,21 +28,10 @@ class DetallesofertaBloc
     await service.EnviarAplicacion(event);
   }
 
-  Future<DetallesOferta> _FetchDetallesOferta(String OfertaId) {
-    DateTime now = new DateTime.now();
-    DateTime date = new DateTime(now.year, now.month, now.day);
-    return Future.delayed(Duration(seconds: 1), () {
-      return DetallesOferta(
-        OfertaId,
-        'Hola vengo del bloc',
-        date,
-        66,
-        'En un lugar',
-        'Informática',
-        50,
-          'Descripcion laruisima',
-        );
-      });
-  }  
+  Future<void> _OnDenunciar(
+      Denunciar event, Emitter<DetallesofertaState> emit) async {
+    OfferService service = new OfferService();
+    await service.DenunciarOferta(event.OfferId);
+  }
 }  
       

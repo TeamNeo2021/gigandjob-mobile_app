@@ -2,13 +2,13 @@
 import 'package:equatable/equatable.dart';
 
 class Meeting extends Equatable{
-  final Map candidate;
-  final Map employer;
+  final String candidate;
+  final String employer;
   final String id;
   final String state;
   final String description;
   final DateTime date;
-  final Map location;
+  //final Map location;
 
   Meeting(
     this.candidate,
@@ -17,7 +17,7 @@ class Meeting extends Equatable{
     this.state,
     this.description,
     this.date,
-    this.location)
+    /*this.location*/)
      : super();
   @override
   List<Object> get props => [];

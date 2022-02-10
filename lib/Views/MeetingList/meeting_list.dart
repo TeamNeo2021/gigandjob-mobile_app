@@ -13,7 +13,7 @@ class MeetingList extends StatefulWidget {
 class _MeetingListState extends State<MeetingList> {
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<MeetinglistBloc>(context).add(GetAllMeetings('1111'));
+    BlocProvider.of<MeetinglistBloc>(context).add(GetAllMeetings('bace587b-ef79-4ee1-8d6e-db524dfb24cd'));
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
@@ -68,18 +68,20 @@ Widget ListaMeetings(List<Meeting> Meetings) {
                   children: [
                     IconButton(
                         onPressed: () {
+                          debugPrint('Aceptar');
                           BlocProvider.of<MeetinglistBloc>(context)
                               .add(AcceptMeeting(
                             Meetings[index].id,
-                            Meetings[index].candidate['canditeId'],
+                            Meetings[index].candidate
                           ));
                         },
                         icon: Icon(Icons.check)),
                     IconButton(onPressed: () {
+                      debugPrint('Aceptar');
                       BlocProvider.of<MeetinglistBloc>(context)
                               .add(RejectMeeting(
                             Meetings[index].id,
-                            Meetings[index].candidate['canditeId'],
+                            Meetings[index].candidate,
                           ));
                     }, icon: Icon(Icons.cancel)),
                   ],

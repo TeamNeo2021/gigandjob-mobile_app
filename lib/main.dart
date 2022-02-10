@@ -86,5 +86,6 @@ materialApp() {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
+
       home: MainPage());
 }

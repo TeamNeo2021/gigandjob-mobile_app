@@ -6,8 +6,7 @@ import 'dart:convert';
 import 'package:gigandjob_mobile_app/Views/DetallesOferta/bloc/detallesoferta_bloc.dart';
 
 class OfferService {
-  String ApiRoute =
-      'https://salvacion-git-job.herokuapp.com/offer'; //AQUI VA EL IP DE HOST
+  String ApiRoute = 'https://salvacion-git-job.herokuapp.com';
 
   Future<void> EnviarAplicacion(Aplicar aplicacion) async {
     try {
@@ -35,8 +34,7 @@ class OfferService {
     dynamic data;
     DetallesOferta detalles;
     try {
-      http.Response response =
-          await http.get(Uri.parse('$ApiRoute/$OfferId/getone'));
+      http.Response response = await http.get(Uri.parse('$ApiRoute/$OfferId/getone'));      
       print(response.body);
       data = json.decode(response.body);
       detalles = new DetallesOferta(
@@ -54,24 +52,22 @@ class OfferService {
     }
   }
 
-  Future<List<OfferDTO>> FetchOfertas() async {
+  Future<void> DenunciarOferta(String OfferId) async {
     dynamic data;
-    List<OfferDTO> lista = [];
+    DetallesOferta detalles;
     try {
-      http.Response response = await http.get(Uri.parse('$ApiRoute/getall'));
+      http.Response response = await http.post(Uri.parse('$ApiRoute/$OfferId/getone'),
+          headers: <String, String>{
+            "Content-Type": "application/json; charset=UTF-8"
+          },
+          body: jsonEncode(<String, String>{
+            'reportedOffer': OfferId,
+            'reason':'Esta oferta es ofensiva'
+          }));
       print(response.body);
-      data = json.decode(response.body);
-      for (var dato in data) {
-        lista.add(new OfferDTO(
-          dato['OfferId'],
-          dato['Rating'],
-          dato['Sector'],
-          dato['Description'],
-        ));
-      }
-      return lista;
     } catch (err) {
       throw err;
     }
   }
+
 }

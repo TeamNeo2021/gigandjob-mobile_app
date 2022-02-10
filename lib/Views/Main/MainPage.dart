@@ -25,9 +25,9 @@ class _MainPageState extends State<MainPage> {
       builder: (context, state) {
         if (state is AuthSuccessfulState) {
           authBloc.add(AuthSucceedEvent(
-            jwt: prefs.getString('jwt'),
-            id: prefs.getString('id'),
-            email: prefs.getString('email'),
+            jwt: state.jwt,
+            id: state.userId,
+            email: state.userEmail,
           ));
           return buildHomePage();
         } else {

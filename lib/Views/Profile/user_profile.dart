@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gigandjob_mobile_app/Dominio/Models/user.dto.dart';
-import 'package:gigandjob_mobile_app/Views/Profile/user.dart';
+import 'package:gigandjob_mobile_app/Views/Login/BLOC/authbloc_bloc.dart';
+import 'package:gigandjob_mobile_app/Views/Profile/user_translate.dart';
 
 import 'Widgets/profile_widget.dart';
 
@@ -29,6 +31,19 @@ class _UserProfileState extends State<UserProfile> {
             //const NumbersWidget(),
             const SizedBox(height: 48),
             buildAbout(user),
+            MaterialButton(
+              color: Colors.redAccent,
+              onPressed: () {
+                BlocProvider.of<AuthBloc>(context)
+                    .add(AuthLogoutEvent(userId: 1));
+                void _close() {
+                  Navigator.pop(context);
+                }
+
+                _close();
+              },
+              child: const Text('Logout'),
+            ),
           ],
         ),
       ),

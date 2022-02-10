@@ -85,12 +85,12 @@ Widget CategoriaBotones(int Categoria) {
             children: [
               IconButton(
                   onPressed: () {
-                    debugPrint('Denunciar Pulsado');
+                    debugPrint('Like Pulsado');
                   },
                   icon: Icon(Icons.favorite)),
               IconButton(
                   onPressed: () {
-                    debugPrint('Denunciar Pulsado');
+                    
                   },
                   icon: Icon(Icons.flag)),
             ],

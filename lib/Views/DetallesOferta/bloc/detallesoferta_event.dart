@@ -32,3 +32,11 @@ class Aplicar extends DetallesofertaEvent {
       this.duration_days,
     ) : super();
 }
+
+class Denunciar extends DetallesofertaEvent {
+  final String OfferId;
+
+    Denunciar(
+      this.OfferId
+    ) : super();
+}

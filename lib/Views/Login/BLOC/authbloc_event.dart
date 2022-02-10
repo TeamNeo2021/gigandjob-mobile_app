@@ -4,14 +4,16 @@ part of 'authbloc_bloc.dart';
 abstract class AuthBlocEvent extends Equatable {}
 
 class AuthSucceedEvent extends AuthBlocEvent {
+  final jwt;
   final id;
   final email;
   AuthSucceedEvent({
     @required this.id,
     @required this.email,
+    @required this.jwt,
   });
   @override
-  List<Object> get props => [];
+  List<Object> get props => [jwt, id, email];
 }
 
 class AuthOnLoginEvent extends AuthBlocEvent {

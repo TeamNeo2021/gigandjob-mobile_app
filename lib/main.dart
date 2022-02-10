@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
 materialApp() {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
-    title: 'gig & jobs',
+    title: 'Gig & jobs App',
     initialRoute: '/',
     routes: {
       '/': (context) => const MainPage(),

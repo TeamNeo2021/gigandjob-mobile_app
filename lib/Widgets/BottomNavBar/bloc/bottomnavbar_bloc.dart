@@ -7,14 +7,14 @@ part 'bottomnavbar_event.dart';
 part 'bottomnavbar_state.dart';
 
 class BottomNavBarBloc extends Bloc<BottomNavBarEvent, BottomNavBarState> {
-  BottomNavBarBloc() : super(BottomnavbarInitial(0, OfferListPage())) {
+  BottomNavBarBloc() : super(BottomNavBarInitial(0, OfferListPage())) {
     on<TabChangedEvent>(onTabChangedEvent);
   }
 
   Future onTabChangedEvent(
       TabChangedEvent event, Emitter<BottomNavBarState> emit) async {
     try {
-      emit(BottomnavbarInitial(event.index, event.page));
+      emit(BottomNavBarChanged(event.index, event.page));
     } catch (e) {
       print('OnTabChangeEventError: $e');
     }

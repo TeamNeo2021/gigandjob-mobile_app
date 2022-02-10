@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'package:gigandjob_mobile_app/Dominio/Models/Offer.dart';
 import 'package:gigandjob_mobile_app/Dominio/Models/detalles_oferta_model.dart';
 import 'package:http/http.dart' as http;

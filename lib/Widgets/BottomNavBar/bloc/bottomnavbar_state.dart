@@ -9,14 +9,14 @@ abstract class BottomNavBarState extends Equatable {
   List<Object> get props => [pageIndex, pageWidget];
 }
 
-class BottomnavbarInitial extends BottomNavBarState {
-  BottomnavbarInitial(int pageIndex, Widget pageWidget)
+class BottomNavBarInitial extends BottomNavBarState {
+  BottomNavBarInitial(int pageIndex, Widget pageWidget)
       : super(pageIndex, pageWidget);
 }
 
-class BottomnavbarChanged extends BottomNavBarState {
+class BottomNavBarChanged extends BottomNavBarState {
   final int pageIndex;
   final Widget pageWidget;
-  BottomnavbarChanged(this.pageIndex, this.pageWidget)
+  BottomNavBarChanged(this.pageIndex, this.pageWidget)
       : super(pageIndex, pageWidget);
 }

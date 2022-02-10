@@ -1,26 +1,45 @@
 part of 'authbloc_bloc.dart';
 
-enum AuthBlocStatus {
-  initial,
-  loggedIn,
-  failure,
-}
+abstract class AuthBlocState extends Equatable {
+  const AuthBlocState();
 
-class AuthBlocState extends Equatable {
-  const AuthBlocState({
-    this.status = AuthBlocStatus.initial,
-  });
-
-  final AuthBlocStatus status;
   //final User user;
 
   @override
+  List<Object?> get props => [];
+}
+
+class AuthSuccessfulState extends AuthBlocState {
+  const AuthSuccessfulState(
+      {required this.jwt, required this.userId, required this.userEmail});
+  final String jwt;
+  final String userId;
+  final String userEmail;
+
+  @override
   String toString() {
-    return 'AuthblocState{status: $status}';
+    return 'AuthSuccessfulState{ jwt:$jwt, user: $userId, email: $userEmail}';
   }
 
   @override
-  List<Object?> get props => [status];
+  List<Object?> get props => [userId, userEmail];
 }
 
-class AuthblocInitial extends AuthBlocState {}
+class AuthFailedState extends AuthBlocState {
+  const AuthFailedState({this.errorMessage = '', this.errorCode = ''});
+
+  final String errorMessage;
+  final String errorCode;
+
+  @override
+  String toString() {
+    return 'AuthFailedState{errorMessage: $errorMessage, errorCode: $errorCode}';
+  }
+
+  @override
+  List<Object?> get props => [errorMessage, errorCode];
+}
+
+class AuthLoadingState extends AuthBlocState {}
+
+class AuthInitialState extends AuthBlocState {}

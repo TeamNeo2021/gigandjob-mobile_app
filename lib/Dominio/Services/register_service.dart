@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:gigandjob_mobile_app/Dominio/Repositories/register_repository.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';

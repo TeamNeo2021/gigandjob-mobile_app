@@ -3,8 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gigandjob_mobile_app/Dominio/Models/user.dto.dart';
 import 'package:gigandjob_mobile_app/Views/Login/BLOC/authbloc_bloc.dart';
 import 'package:gigandjob_mobile_app/Views/Profile/user_translate.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Widgets/profile_widget.dart';
+
+class UserInfo {
+  final String userId;
+  final String userEmail;
+
+  const UserInfo({required this.userId, required this.userEmail});
+}
 
 class UserProfile extends StatefulWidget {
   @override
@@ -14,6 +22,7 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
+    final userData = getUserInfo();
     final UserDto user = UserTranslate().translate(true);
     return Scaffold(
       body: Padding(
@@ -25,12 +34,20 @@ class _UserProfileState extends State<UserProfile> {
               imagePath: user.image,
               onClicked: () async {},
             ),
-            const SizedBox(height: 24),
-            buildName(user),
-            //const SizedBox(height: 24),
-            //const NumbersWidget(),
-            const SizedBox(height: 48),
-            buildAbout(user),
+            Text(
+              'User Id: ${userData.userId}',
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            ),
+            Text(
+              'User email: ${userData.userEmail}',
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            ),
+            // const SizedBox(height: 24),
+            // buildName(user),
+            // //const SizedBox(height: 24),
+            // //const NumbersWidget(),
+            // const SizedBox(height: 48),
+            // buildAbout(user),
             MaterialButton(
               color: Colors.redAccent,
               onPressed: () {
@@ -47,6 +64,15 @@ class _UserProfileState extends State<UserProfile> {
           ],
         ),
       ),
+    );
+  }
+
+  getUserInfo() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    return new UserInfo(
+      userId: prefs.getString('userId')!,
+      userEmail: prefs.getString('userEmail')!,
     );
   }
 

@@ -5,6 +5,7 @@ import 'package:gigandjob_mobile_app/Views/Login/BLOC/authbloc_bloc.dart';
 import 'package:gigandjob_mobile_app/Views/Login/LoginPage.dart';
 import 'package:gigandjob_mobile_app/Widgets/BottomNavBar/bloc/bottomnavbar_bloc.dart';
 import 'package:gigandjob_mobile_app/Widgets/CustomBottonNavigationBar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -16,18 +17,28 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
+    final AuthBloc authBloc = BlocProvider.of<AuthBloc>(context);
+    final prefs = getSharedPreferences();
     return BlocBuilder<AuthBloc, AuthBlocState>(
-      bloc: BlocProvider.of<AuthBloc>(context),
+      bloc: authBloc,
       // listener: (context, state) {},
       builder: (context, state) {
-        if (state.status == AuthBlocStatus.loggedIn) {
-          //travel to Main
+        if (state is AuthSuccessfulState) {
+          authBloc.add(AuthSucceedEvent(
+            jwt: state.jwt,
+            id: state.userId,
+            email: state.userEmail,
+          ));
           return buildHomePage();
         } else {
           return LoginPage();
         }
       },
     );
+  }
+
+  getSharedPreferences() async {
+    return await SharedPreferences.getInstance();
   }
 
   buildHomePage() {

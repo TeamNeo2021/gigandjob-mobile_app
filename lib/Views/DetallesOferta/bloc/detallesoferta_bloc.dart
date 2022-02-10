@@ -18,8 +18,12 @@ class DetallesofertaBloc
   Future<void> _OnGetOferta(
       GetOferta event, Emitter<DetallesofertaState> emit) async {
     OfferService service = new OfferService();
-    final detallesOferta = await service.FetchDetallesOferta(event.OfertaId);
-    emit(OfertaCargada(detallesOferta));
+    try {
+      final detallesOferta = await service.FetchDetallesOferta(event.OfertaId);
+      emit(OfertaCargada(detallesOferta));
+    } on Exception catch (e) {
+      print(e);
+    }
   }
 
   Future<void> _OnAplicar(

@@ -6,10 +6,10 @@ class DetallesOferta extends Equatable {
   final String titulo; //Falta
   //final State: OfferStateVO;
   //final Before_State: OfferStateVO;
-  final DateTime PublicationDate;
+  //final DateTime PublicationDate;
   final int Rating;
-  final String Direction;
-  final String Sector;
+  final Object Direction;
+  final int Sector;
   final int Budget;
   final String Description;
   //final application: Application[];
@@ -20,7 +20,7 @@ class DetallesOferta extends Equatable {
       this.titulo, //Falta
       //final State: OfferStateVO,
       //final Before_State: OfferStateVO,
-      this.PublicationDate,
+      //this.PublicationDate,
       this.Rating,
       this.Direction,
       this.Sector,

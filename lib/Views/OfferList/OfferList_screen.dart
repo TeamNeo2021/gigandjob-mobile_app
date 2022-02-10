@@ -12,6 +12,21 @@ class OfferList extends StatefulWidget {
 }
 
 class _OfferListState extends State<OfferList> {
+  int currentIndex = 0;
+  final screens = [
+    Center(
+      child: Text('Home', style: TextStyle(fontSize: 60)),
+    ),
+    Center(
+      child: Text('Aplicaciones', style: TextStyle(fontSize: 60)),
+    ),
+    Center(
+      child: Text('Meeting', style: TextStyle(fontSize: 60)),
+    ),
+    Center(
+      child: Text('Perfil', style: TextStyle(fontSize: 60)),
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<OfferlistBloc>(context).add(GetAll());
@@ -24,7 +39,8 @@ class _OfferListState extends State<OfferList> {
       ),
       /*body:  Column(
         children: <Widget>[*/
-      body: SafeArea(child: OfferListWidget()),
+      //body: SafeArea(child: OfferListWidget()),
+      body: screens[currentIndex],
       bottomNavigationBar: NavigationBarWidget(),
     );
   }

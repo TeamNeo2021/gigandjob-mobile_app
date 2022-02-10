@@ -1,9 +1,8 @@
-import 'dart:ffi';
+import 'package:gigandjob_mobile_app/Dominio/Models/Offer.dart';
 import 'package:gigandjob_mobile_app/Dominio/Models/detalles_oferta_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:gigandjob_mobile_app/Views/DetallesOferta/bloc/detallesoferta_bloc.dart';
 
 class OfferService {
@@ -12,7 +11,8 @@ class OfferService {
   Future<void> EnviarAplicacion(Aplicar aplicacion) async {
     try {
       print('Enviando la vaina pa la api');
-      http.Response response = await http.post(Uri.parse('$ApiRoute/offer/applyToOffer'),
+      http.Response response = await http.post(
+          Uri.parse('$ApiRoute/offer/applyToOffer'),
           headers: <String, String>{
             "Content-Type": "application/json; charset=UTF-8"
           },
@@ -34,18 +34,18 @@ class OfferService {
     dynamic data;
     DetallesOferta detalles;
     try {
-      http.Response response = await http.get(Uri.parse('$ApiRoute/$OfferId/getone'));
+      http.Response response = await http.get(Uri.parse('$ApiRoute/$OfferId/getone'));      
       print(response.body);
       data = json.decode(response.body);
       detalles = new DetallesOferta(
-        data['OfferId'], 
-        data['Description'], 
-        new DateTime(data['PublicationDate']),
-        data['Rating'],
-        data['Direction'], 
-        data['Sector'], 
-        int.parse(data['Budget']), 
-        data['Description']);
+          data['OfferId'],
+          data['Description'],
+          //data['PublicationDate'],
+          data['Rating'],
+          data['Direction'],
+          data['Sector'],
+          (data['Budget']),
+          data['Description']);
       return detalles;
     } catch (err) {
       throw err;

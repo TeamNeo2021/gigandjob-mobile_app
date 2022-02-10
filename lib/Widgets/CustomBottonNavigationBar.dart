@@ -14,7 +14,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
     OfferListPage(),
     AplicationsListPage(),
     MeetingListPage(),
-    ProfilePage()
+    UserProfile()
     // {
     //   page: Page,
     //   icon: Icon.name,

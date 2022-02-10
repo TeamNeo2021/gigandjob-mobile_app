@@ -8,9 +8,7 @@ import 'Widgets/profile_widget.dart';
 
 class UserProfile extends StatefulWidget {
   @override
-
   _UserProfileState createState() => _UserProfileState();
-
 }
 
 class _UserProfileState extends State<UserProfile> {
@@ -35,8 +33,15 @@ class _UserProfileState extends State<UserProfile> {
             buildAbout(user),
             MaterialButton(
               color: Colors.redAccent,
-              onPressed: () => BlocProvider.of<AuthBloc>(context)
-                  .add(AuthLogoutEvent(userId: 1)),
+              onPressed: () {
+                BlocProvider.of<AuthBloc>(context)
+                    .add(AuthLogoutEvent(userId: 1));
+                void _close() {
+                  Navigator.pop(context);
+                }
+
+                _close();
+              },
               child: const Text('Logout'),
             ),
           ],

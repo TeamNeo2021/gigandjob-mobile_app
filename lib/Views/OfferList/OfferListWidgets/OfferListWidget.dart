@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gigandjob_mobile_app/Dominio/Models/Offer.dart';
+import 'package:gigandjob_mobile_app/Views/DetallesOferta/detalles_oferta.dart';
 import 'package:gigandjob_mobile_app/Views/OfferList/OfferListBLOC/offerlist/offerlist_bloc.dart';
 
 class OfferListWidget extends StatelessWidget {
@@ -19,11 +20,16 @@ class OfferListWidget extends StatelessWidget {
                   color: Colors.amber[200],
                   child: Column(children: [
                     ListTile(
-                      title: Text(list_Of_Offers[index].offerName),
+                      title: Text(list_Of_Offers[index].description),
                       subtitle: Text('El subtitulo u otro preview'),
                       trailing: Icon(Icons.arrow_forward),
                       onTap: () {
-                        print(Text('Nos vamos a Details'));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (contex) => DetallesOfertaPage(
+                                      list_Of_Offers[index].offerId,
+                                    )));
                         //Navigator.push(context, MaterialPageRoute(builder: (contex) => OfferList())
                       },
                     ),

@@ -16,24 +16,49 @@ class OfferListWidget extends StatelessWidget {
               padding: EdgeInsets.all(10),
               itemCount: list_Of_Offers.length,
               itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  color: Colors.amber[200],
-                  child: Column(children: [
-                    ListTile(
-                      title: Text(list_Of_Offers[index].description),
-                      subtitle: Text('El subtitulo u otro preview'),
-                      trailing: Icon(Icons.arrow_forward),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (contex) => DetallesOfertaPage(
-                                      list_Of_Offers[index].offerId,
-                                    )));
-                        //Navigator.push(context, MaterialPageRoute(builder: (contex) => OfferList())
-                      },
-                    ),
-                  ]),
+                return Container(
+                  height: 100,
+                  child: Card(
+                    color: Colors.white,
+                    child: Column(children: [
+                      ListTile(
+                        title: Text(
+                          list_Of_Offers[index].description,
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text(list_Of_Offers[index].sector.toString()),
+                        trailing: Container(
+                          height: double.infinity,
+                          child: Column(
+                            children: [
+                              Icon(
+                                Icons.favorite,
+                                color: Colors.red,
+                                size: 35,
+                              ),
+                              Text(
+                                list_Of_Offers[index].rating.toString(),
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (contex) => DetallesOfertaPage(
+                                        list_Of_Offers[index].offerId,
+                                      )));
+                          //Navigator.push(context, MaterialPageRoute(builder: (contex) => OfferList())
+                        },
+                      ),
+                    ]),
+                  ),
                 );
               }),
         );

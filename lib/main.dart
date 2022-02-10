@@ -61,6 +61,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<DetallesofertaBloc>(
           create: (_) => DetallesofertaBloc(),
         ),
+        BlocProvider<OfferlistBloc>(
+          create: (_) => OfferlistBloc(),
+        ),
         BlocProvider<SignupBloc>(
           create: (_) => SignupBloc(),
         ),
@@ -72,6 +75,7 @@ class MyApp extends StatelessWidget {
 
 materialApp() {
   return MaterialApp(
+
     debugShowCheckedModeBanner: false,
     title: 'Gig & jobs App',
     initialRoute: '/',

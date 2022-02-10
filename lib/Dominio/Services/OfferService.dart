@@ -6,7 +6,8 @@ import 'dart:convert';
 import 'package:gigandjob_mobile_app/Views/DetallesOferta/bloc/detallesoferta_bloc.dart';
 
 class OfferService {
-  String ApiRoute = 'http://192.168.86.26:3000/offer'; //AQUI VA EL IP DE HOST
+  String ApiRoute =
+      'https://salvacion-git-job.herokuapp.com/offer'; //AQUI VA EL IP DE HOST
 
   Future<void> EnviarAplicacion(Aplicar aplicacion) async {
     try {
@@ -61,7 +62,12 @@ class OfferService {
       print(response.body);
       data = json.decode(response.body);
       for (var dato in data) {
-        lista.add(new OfferDTO(dato['OfferId'], dato['Description']));
+        lista.add(new OfferDTO(
+          dato['OfferId'],
+          dato['Rating'],
+          dato['Sector'],
+          dato['Description'],
+        ));
       }
       return lista;
     } catch (err) {

@@ -18,12 +18,11 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final AuthBloc authBloc = BlocProvider.of<AuthBloc>(context);
-    final prefs = getSharedPreferences();
+    // final prefs = getSharedPreferences();
     return BlocBuilder<AuthBloc, AuthBlocState>(
       bloc: authBloc,
       // listener: (context, state) {},
       builder: (context, state) {
-        final token = prefs.getString('jwt') ?? '';
         if (state is AuthSuccessfulState) {
           authBloc.add(AuthSucceedEvent(
             jwt: state.jwt,
@@ -31,13 +30,18 @@ class _MainPageState extends State<MainPage> {
             email: state.userEmail,
           ));
           return buildHomePage();
-        } else if (token != '') {
-          return LoginPage();
+        // } else if ( await isUserLoggedIn()) {
+        //   return buildHomePage();
         } else {
           return LoginPage();
         }
       },
     );
+  }
+
+  Future<bool> isUserLoggedIn() async {
+    final prefs = getSharedPreferences();
+    return await prefs.getString('jwt') != '' ? true : false;
   }
 
   getSharedPreferences() async {

@@ -56,7 +56,8 @@ class AuthService implements AuthRepository {
       await prefs.setString('email', decodedResponse['email']);
       await prefs.setString('jwt', decodedResponse['jwt']);
     } else {
-      throw Exception('AuthService onLogin error response:  ${response} ');
+      //throw Exception('AuthService onLogin error response:  ${response} ');
+      print('AuthService onLogin error response:  ${response} ');
     }
 
     print('AUTHSERVICE JWT RESPONSE ${decodedResponse['jwt']}');

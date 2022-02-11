@@ -26,10 +26,10 @@ class AuthSuccessfulState extends AuthBlocState {
 }
 
 class AuthFailedState extends AuthBlocState {
-  const AuthFailedState({this.errorMessage = '', this.errorCode = ''});
+  const AuthFailedState({this.errorMessage = '', this.errorCode = 0});
 
   final String errorMessage;
-  final String errorCode;
+  final int errorCode;
 
   @override
   String toString() {

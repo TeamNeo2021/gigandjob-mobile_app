@@ -31,10 +31,6 @@ class AuthBloc extends Bloc<AuthBlocEvent, AuthBlocState> {
       print('AUTH BLOC RESPONSE: $response');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        // final prefs = await SharedPreferences.getInstance();
-        // final String? userId = prefs.getString('id');
-        // final String? userEmail = prefs.getString('email');
-
         print(
             'AUTH BLOC: User logged: ${response.userId} , ${response.userEmail}');
 

@@ -15,16 +15,14 @@ class GetOferta extends DetallesofertaEvent {
 
 class Aplicar extends DetallesofertaEvent {
   final String OfferId;
-  final String employerId;
-  final String candidateId;
+  final String employerId;  
   final String state;
   final int budget;
   final String description;
   final int duration_days;
 
     Aplicar(
-      this.OfferId,      
-      this.candidateId,
+      this.OfferId,            
       this.employerId,
       this.state,    
       this.budget,

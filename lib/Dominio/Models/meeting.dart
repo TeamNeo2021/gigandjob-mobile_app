@@ -1,7 +1,6 @@
-
 import 'package:equatable/equatable.dart';
 
-class Meeting extends Equatable{
+class Meeting extends Equatable {
   final String candidate;
   final String employer;
   final String id;
@@ -12,13 +11,13 @@ class Meeting extends Equatable{
 
   Meeting(
     this.candidate,
-    this.employer, 
+    this.employer,
     this.id,
     this.state,
     this.description,
     this.date,
-    /*this.location*/)
-     : super();
+    /*this.location*/
+  ) : super();
   @override
   List<Object> get props => [];
 }

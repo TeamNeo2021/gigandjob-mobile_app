@@ -7,11 +7,7 @@ abstract class MeetinglistEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetAllMeetings extends MeetinglistEvent {
-  String CandidateId;
-
-  GetAllMeetings(this.CandidateId) : super();
-}
+class GetAllMeetings extends MeetinglistEvent {}
 
 class AcceptMeeting extends MeetinglistEvent {
   final String candidateId;

@@ -49,23 +49,24 @@ class _DetallesOfertaPageState extends State<DetallesOfertaPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        CategoriaBotones(Detalles.Sector),
+        CategoriaBotones(Detalles.Sector, context, widget.offerId),
         //Fecha(Detalles.PublicationDate),
         titulo(),
-        LikesPostulaciones(Detalles.Rating),
+        LikesPostulaciones(
+            Detalles.Rating, Detalles.applications, Detalles.reports),
         Container(
           padding: EdgeInsets.symmetric(vertical: 25, horizontal: 18),
           child: Text(Detalles.Description),
         ),
         //ResumenEmpleador(),
-        OpcionesPostulacion(context, '21'),
+        OpcionesPostulacion(context, widget.offerId),
       ],
     );
   }
 }
 
 /*Widgets en orden de aparicion*/
-Widget CategoriaBotones(int Categoria) {
+Widget CategoriaBotones(int Categoria, BuildContext context, String offerId) {
   return Container(
     //decoration: BoxDecoration(color: Colors.blueGrey[100]),
     child: Padding(
@@ -90,7 +91,9 @@ Widget CategoriaBotones(int Categoria) {
                   icon: Icon(Icons.favorite)),
               IconButton(
                   onPressed: () {
-                    
+                    print(offerId);
+                    BlocProvider.of<DetallesofertaBloc>(context)
+                        .add(Denunciar(offerId));
                   },
                   icon: Icon(Icons.flag)),
             ],
@@ -133,20 +136,22 @@ Widget titulo() {
       ));
 }
 
-Widget LikesPostulaciones(int likes) {
+Widget LikesPostulaciones(int likes, int postulaciones, int reportes) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 0.5, horizontal: 18),
     child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Icon(Icons.note_alt_sharp, size: 15, color: Colors.grey[600]),
-        SizedBox(width: 5),
-        Text('5 postulaciones',
+        Text('$postulaciones postulaciones',
             style: TextStyle(
                 fontWeight: FontWeight.w200, color: Colors.grey[800])),
-        SizedBox(width: 30),
         Icon(Icons.favorite, size: 15, color: Colors.grey[600]),
-        SizedBox(width: 5),
         Text('$likes likes',
+            style: TextStyle(
+                fontWeight: FontWeight.w200, color: Colors.grey[800])),
+        Icon(Icons.flag, size: 15, color: Colors.grey[600]),
+        Text('$reportes reportes',
             style: TextStyle(
                 fontWeight: FontWeight.w200, color: Colors.grey[800])),
       ],
@@ -261,8 +266,7 @@ void postularse(
   debugPrint('Postularse Presionado');
   try {
     BlocProvider.of<DetallesofertaBloc>(context).add(Aplicar(
-        OfferId,
-        '11', //Falta obtenerlo cuando se implemente el login
+        OfferId,        
         '22', //Considerando quitarlo
         '0', //Considerando Quitarlo
         int.parse(Controllers[0].text),

@@ -11,14 +11,15 @@ import 'package:gigandjob_mobile_app/Views/DetallesOferta/bloc/detallesoferta_bl
 
 class MeetingService {
   // ignore: non_constant_identifier_names
-  String ApiRoute = 'https://salvacion-git-job.herokuapp.com';
-  //String ApiRoute = 'http://192.168.1.119:5000';
+  //String ApiRoute = 'https://salvacion-git-job.herokuapp.com';
+  String ApiRoute = 'http://192.168.1.119:5000';
 
-  Future<List<Meeting>> getMeetings(String candidateId) async {
+  Future<List<Meeting>> getMeetings(String? candidateId) async {
     dynamic data;
     dynamic Estado;
     List<Meeting> lista = [];
     try {
+      print(candidateId);
       http.Response response =
           await http.get(Uri.parse('$ApiRoute/meeting/$candidateId/getall'));
       print(response.body);
@@ -48,6 +49,7 @@ class MeetingService {
   Future<void> acceptMeeting(AcceptMeeting event) async {
     try {
       print('llamando a la api');
+      print(event.candidateId+' '+event.candidateId);
       http.Response response = await http.put(
           Uri.parse('$ApiRoute/meeting/accept'),
           headers: <String, String>{
@@ -57,7 +59,7 @@ class MeetingService {
             'candidateId': event.candidateId,
             'meetingId': event.meetingId,
           }));
-      print(response.body);    
+      print(response.body);
     } catch (err) {
       throw err;
     }
@@ -74,7 +76,7 @@ class MeetingService {
             'candidateId': event.candidateId,
             'meetingId': event.meetingId,
           }));
-      print(response.body);    
+      print(response.body);
     } catch (err) {
       throw err;
     }

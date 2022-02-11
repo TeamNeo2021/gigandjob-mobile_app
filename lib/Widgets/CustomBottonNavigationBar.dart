@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gigandjob_mobile_app/Views/AplicationsList/AplicationsListPage.dart';
-import 'package:gigandjob_mobile_app/Views/MeetingList/MeetingListPage.dart';
+import 'package:gigandjob_mobile_app/Views/MeetingList/meeting_list.dart';
 import 'package:gigandjob_mobile_app/Views/OfferList/OfferListPage.dart';
 import 'package:gigandjob_mobile_app/Views/Profile/ProfilePage.dart';
 
@@ -13,7 +13,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
   static List<Widget> _pages = <Widget>[
     OfferListPage(),
     AplicationsListPage(),
-    MeetingListPage(),
+    MeetingList(),
     UserProfile()
     // {
     //   page: Page,

@@ -2,30 +2,25 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 class DetallesOferta extends Equatable {
-  final String OfferId;
-  final String titulo; //Falta
-  //final State: OfferStateVO;
-  //final Before_State: OfferStateVO;
-  //final DateTime PublicationDate;
-  final int Rating;
-  final Object Direction;
+  final String OfferId; 
+  final int State;
+  final DateTime PublicationDate;
+  final int Rating;  
   final int Sector;
   final int Budget;
   final String Description;
-  //final application: Application[];
-  //final reports: OfferReportVO[] = []
-
+  final int applications;
+  final int reports;
   DetallesOferta(
-      this.OfferId,
-      this.titulo, //Falta
-      //final State: OfferStateVO,
-      //final Before_State: OfferStateVO,
-      //this.PublicationDate,
-      this.Rating,
-      this.Direction,
+      this.OfferId,    
+      this.State,      
+      this.PublicationDate,
+      this.Rating,      
       this.Sector,
       this.Budget,
-      this.Description)
+      this.Description,
+      this.applications,
+      this.reports)
       : super();
   @override
   List<Object> get props => [];

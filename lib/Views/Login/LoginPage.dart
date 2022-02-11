@@ -79,6 +79,7 @@ class LoginPage extends StatelessWidget {
                         height: 10,
                       ),
                       MaterialButton(
+                          key: Key('signUpButton'),
                           height: 50,
                           color: Colors.lightBlue,
                           child: Center(

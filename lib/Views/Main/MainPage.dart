@@ -23,6 +23,7 @@ class _MainPageState extends State<MainPage> {
       bloc: authBloc,
       // listener: (context, state) {},
       builder: (context, state) {
+        final token = prefs.getString('jwt') ?? '';
         if (state is AuthSuccessfulState) {
           authBloc.add(AuthSucceedEvent(
             jwt: state.jwt,
@@ -30,6 +31,8 @@ class _MainPageState extends State<MainPage> {
             email: state.userEmail,
           ));
           return buildHomePage();
+        } else if (token != '') {
+          return LoginPage();
         } else {
           return LoginPage();
         }

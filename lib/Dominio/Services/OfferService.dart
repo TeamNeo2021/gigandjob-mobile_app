@@ -40,7 +40,7 @@ class OfferService {
           await http.get(Uri.parse('$ApiRoute/$OfferId/getone'));
       print(response.body);
       data = json.decode(response.body);
-      int apli = 0;       
+      int apli = 0;
       int repo = 0;
       if (data['applications'] != null) {
         List<dynamic> app = data['applications'];
@@ -66,17 +66,18 @@ class OfferService {
     }
   }
 
-  Future<void> DenunciarOferta(String OfferId) async {
+  Future<void> DenunciarOferta(String OfferId, String? userId) async {
     dynamic data;
     DetallesOferta detalles;
     try {
+      print(OfferId);
       http.Response response = await http.post(
-          Uri.parse('$ApiRoute/$OfferId/getone'),
+          Uri.parse('$ApiRoute/$OfferId/report'),
           headers: <String, String>{
             "Content-Type": "application/json; charset=UTF-8"
           },
-          body: jsonEncode(<String, String>{
-            'reportedOffer': OfferId,
+          body: jsonEncode(<String, dynamic>{
+            'reporterId': userId,
             'reason': 'Esta oferta es ofensiva'
           }));
       print(response.body);

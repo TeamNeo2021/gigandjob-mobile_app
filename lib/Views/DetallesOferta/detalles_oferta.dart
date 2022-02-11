@@ -49,10 +49,11 @@ class _DetallesOfertaPageState extends State<DetallesOfertaPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        CategoriaBotones(Detalles.Sector),
+        CategoriaBotones(Detalles.Sector, context, widget.offerId),
         //Fecha(Detalles.PublicationDate),
         titulo(),
-        LikesPostulaciones(Detalles.Rating, Detalles.applications, Detalles.reports),
+        LikesPostulaciones(
+            Detalles.Rating, Detalles.applications, Detalles.reports),
         Container(
           padding: EdgeInsets.symmetric(vertical: 25, horizontal: 18),
           child: Text(Detalles.Description),
@@ -65,7 +66,7 @@ class _DetallesOfertaPageState extends State<DetallesOfertaPage> {
 }
 
 /*Widgets en orden de aparicion*/
-Widget CategoriaBotones(int Categoria) {
+Widget CategoriaBotones(int Categoria, BuildContext context, String offerId) {
   return Container(
     //decoration: BoxDecoration(color: Colors.blueGrey[100]),
     child: Padding(
@@ -90,7 +91,9 @@ Widget CategoriaBotones(int Categoria) {
                   icon: Icon(Icons.favorite)),
               IconButton(
                   onPressed: () {
-                    
+                    print(offerId);
+                    BlocProvider.of<DetallesofertaBloc>(context)
+                        .add(Denunciar(offerId));
                   },
                   icon: Icon(Icons.flag)),
             ],
@@ -137,23 +140,20 @@ Widget LikesPostulaciones(int likes, int postulaciones, int reportes) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 0.5, horizontal: 18),
     child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Icon(Icons.note_alt_sharp, size: 15, color: Colors.grey[600]),
-        SizedBox(width: 5),
         Text('$postulaciones postulaciones',
             style: TextStyle(
                 fontWeight: FontWeight.w200, color: Colors.grey[800])),
-        SizedBox(width: 30),
         Icon(Icons.favorite, size: 15, color: Colors.grey[600]),
-        SizedBox(width: 5),
         Text('$likes likes',
             style: TextStyle(
                 fontWeight: FontWeight.w200, color: Colors.grey[800])),
         Icon(Icons.flag, size: 15, color: Colors.grey[600]),
-        SizedBox(width: 5),
         Text('$reportes reportes',
             style: TextStyle(
-                fontWeight: FontWeight.w200, color: Colors.grey[800])),        
+                fontWeight: FontWeight.w200, color: Colors.grey[800])),
       ],
     ),
   );

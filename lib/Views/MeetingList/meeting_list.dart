@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gigandjob_mobile_app/Dominio/Models/meeting.dart';
 import 'package:gigandjob_mobile_app/Widgets/NavigationBar/NavigationBar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'bloc/meetinglist_bloc.dart';
 
 class MeetingList extends StatefulWidget {
@@ -13,13 +14,18 @@ class MeetingList extends StatefulWidget {
 class _MeetingListState extends State<MeetingList> {
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<MeetinglistBloc>(context).add(GetAllMeetings('bace587b-ef79-4ee1-8d6e-db524dfb24cd'));
+    final pref = SharedPreferences.getInstance();
+    BlocProvider.of<MeetinglistBloc>(context)
+        .add(GetAllMeetings('bace587b-ef79-4ee1-8d6e-db524dfb24cd' /*pref.*/));
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.blue[50],
       appBar: AppBar(
-        title: Text('MeetingList'),
-        centerTitle: true,
-        backgroundColor: Colors.redAccent,
+        title: Text(
+          '      Gig&Job',
+          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+        ),
+        foregroundColor: Colors.deepPurple[800],
+        backgroundColor: Colors.white,
       ),
       body: Container(
           alignment: Alignment.center,
@@ -33,7 +39,6 @@ class _MeetingListState extends State<MeetingList> {
               return throw NullThrownError();
             },
           )),
-      bottomNavigationBar: NavigationBarWidget(),
     );
   }
 }
@@ -69,21 +74,21 @@ Widget ListaMeetings(List<Meeting> Meetings) {
                     IconButton(
                         onPressed: () {
                           debugPrint('Aceptar');
-                          BlocProvider.of<MeetinglistBloc>(context)
-                              .add(AcceptMeeting(
-                            Meetings[index].id,
-                            Meetings[index].candidate
-                          ));
+                          BlocProvider.of<MeetinglistBloc>(context).add(
+                              AcceptMeeting(Meetings[index].id,
+                                  Meetings[index].candidate));
                         },
                         icon: Icon(Icons.check)),
-                    IconButton(onPressed: () {
-                      debugPrint('Aceptar');
-                      BlocProvider.of<MeetinglistBloc>(context)
+                    IconButton(
+                        onPressed: () {
+                          debugPrint('Aceptar');
+                          BlocProvider.of<MeetinglistBloc>(context)
                               .add(RejectMeeting(
                             Meetings[index].id,
                             Meetings[index].candidate,
                           ));
-                    }, icon: Icon(Icons.cancel)),
+                        },
+                        icon: Icon(Icons.cancel)),
                   ],
                 ),
               ],

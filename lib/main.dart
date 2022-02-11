@@ -10,6 +10,7 @@ import 'Views/Login/BLOC/authbloc_bloc.dart';
 import 'Views/Login/BLOC/authbloc_bloc.dart';
 import 'Views/Login/LoginPage.dart';
 import 'Views/Main/MainPage.dart';
+import 'Views/MeetingList/bloc/meetinglist_bloc.dart';
 import 'Views/OfferList/OfferListBLOC/offerlist/offerlist_bloc.dart';
 import 'Views/OfferList/OfferList_screen.dart';
 import 'Views/SignUp/bloc/signup_bloc.dart';
@@ -67,6 +68,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<SignupBloc>(
           create: (_) => SignupBloc(),
         ),
+        BlocProvider<MeetinglistBloc>(
+          create: (_) => MeetinglistBloc(),
+        ),
       ],
       child: materialApp(),
     );
@@ -75,7 +79,6 @@ class MyApp extends StatelessWidget {
 
 materialApp() {
   return MaterialApp(
-
     debugShowCheckedModeBanner: false,
     title: 'Gig & jobs App',
     initialRoute: '/',

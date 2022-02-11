@@ -6,13 +6,13 @@ import 'dart:convert';
 import 'package:gigandjob_mobile_app/Views/DetallesOferta/bloc/detallesoferta_bloc.dart';
 
 class OfferService {
-  String ApiRoute = 'https://salvacion-git-job.herokuapp.com';
+  String ApiRoute = 'https://salvacion-git-job.herokuapp.com/offer';
 
   Future<void> EnviarAplicacion(Aplicar aplicacion) async {
     try {
       print('Enviando la vaina pa la api');
       http.Response response = await http.post(
-          Uri.parse('$ApiRoute/offer/applyToOffer'),
+          Uri.parse('$ApiRoute/applyToOffer'),
           headers: <String, String>{
             "Content-Type": "application/json; charset=UTF-8"
           },
@@ -34,7 +34,8 @@ class OfferService {
     dynamic data;
     DetallesOferta detalles;
     try {
-      http.Response response = await http.get(Uri.parse('$ApiRoute/$OfferId/getone'));      
+      http.Response response =
+          await http.get(Uri.parse('$ApiRoute/$OfferId/getone'));
       print(response.body);
       data = json.decode(response.body);
       detalles = new DetallesOferta(
@@ -56,13 +57,14 @@ class OfferService {
     dynamic data;
     DetallesOferta detalles;
     try {
-      http.Response response = await http.post(Uri.parse('$ApiRoute/$OfferId/getone'),
+      http.Response response = await http.post(
+          Uri.parse('$ApiRoute/$OfferId/getone'),
           headers: <String, String>{
             "Content-Type": "application/json; charset=UTF-8"
           },
           body: jsonEncode(<String, String>{
             'reportedOffer': OfferId,
-            'reason':'Esta oferta es ofensiva'
+            'reason': 'Esta oferta es ofensiva'
           }));
       print(response.body);
     } catch (err) {
@@ -90,5 +92,4 @@ class OfferService {
       throw err;
     }
   }
-
 }

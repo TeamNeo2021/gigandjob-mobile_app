@@ -23,30 +23,34 @@ class AuthBloc extends Bloc<AuthBlocEvent, AuthBlocState> {
       AuthOnLoginEvent event, Emitter<AuthBlocState> emit) async {
     print('ON AUTH LOGIN EVENT');
 
-    emit(AuthLoadingState());
-    final response = await this
-        .authRepository
-        .login(new AuthEntity(email: event.email, password: event.password));
-    print('AUTH BLOC RESPONSE: $response');
+    try {
+      emit(AuthLoadingState());
+      final response = await this
+          .authRepository
+          .login(new AuthEntity(email: event.email, password: event.password));
+      print('AUTH BLOC RESPONSE: $response');
 
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      // final prefs = await SharedPreferences.getInstance();
-      // final String? userId = prefs.getString('id');
-      // final String? userEmail = prefs.getString('email');
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        // final prefs = await SharedPreferences.getInstance();
+        // final String? userId = prefs.getString('id');
+        // final String? userEmail = prefs.getString('email');
 
-      print(
-          'AUTH BLOC: User logged: ${response.userId} , ${response.userEmail}');
+        print(
+            'AUTH BLOC: User logged: ${response.userId} , ${response.userEmail}');
 
-      return emit(AuthSuccessfulState(
-          jwt: response.jwt,
-          userEmail: response.userEmail,
-          userId: response.userId));
-    } else {
-      print('AUTH BLOC ERROR  ${response}');
-      return emit(AuthFailedState(
-        errorCode: response.statusCode,
-        errorMessage: response.message,
-      ));
+        return emit(AuthSuccessfulState(
+            jwt: response.jwt,
+            userEmail: response.userEmail,
+            userId: response.userId));
+      } else {
+        print('AUTH BLOC ERROR  ${response}');
+        return emit(AuthFailedState(
+          errorCode: response.statusCode,
+          errorMessage: response.message,
+        ));
+      }
+    } on Exception catch (e) {
+      return emit(AuthFailedState());
     }
   }
 

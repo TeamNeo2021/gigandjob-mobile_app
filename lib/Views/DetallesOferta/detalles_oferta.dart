@@ -51,7 +51,7 @@ class _DetallesOfertaPageState extends State<DetallesOfertaPage> {
       children: <Widget>[
         CategoriaBotones(Detalles.Sector, context, widget.offerId),
         //Fecha(Detalles.PublicationDate),
-        titulo(),
+        titulo(Detalles.Description),
         LikesPostulaciones(
             Detalles.Rating, Detalles.applications, Detalles.reports),
         Container(
@@ -123,7 +123,13 @@ Widget Fecha(DateTime fecha) {
   );
 }
 
-Widget titulo() {
+Widget titulo(String titulo) {  
+  String tituloformat = '';
+  if (titulo.length < 15) {    
+    tituloformat = titulo.substring(0, titulo.length);
+  } else {
+    tituloformat = '${titulo.substring(0,14)}...';
+  }
   return Container(
       padding: const EdgeInsets.fromLTRB(18, 0.5, 18, 25),
       child: Container(
@@ -131,7 +137,7 @@ Widget titulo() {
             border: Border(
                 bottom: BorderSide(
                     color: Color.fromRGBO(124, 77, 255, 1.0), width: 1))),
-        child: Text('Titulo, largo porque es para un trabajo muy importante',
+        child: Text('${tituloformat}...',
             style: TextStyle(fontSize: 23)),
       ));
 }
@@ -262,16 +268,19 @@ Widget OpcionesPostulacion(BuildContext context, String OfferId) {
 }
 
 void postularse(
-    List<TextEditingController> Controllers, context, String OfferId) {
+    List<TextEditingController> controllers, context, String OfferId) {
   debugPrint('Postularse Presionado');
   try {
     BlocProvider.of<DetallesofertaBloc>(context).add(Aplicar(
-        OfferId,        
+        OfferId,
         '22', //Considerando quitarlo
         '0', //Considerando Quitarlo
-        int.parse(Controllers[0].text),
-        Controllers[2].text,
-        int.parse(Controllers[1].text)));
+        int.parse(controllers[0].text),
+        controllers[2].text,
+        int.parse(controllers[1].text)));
+    controllers[0].text = '';
+    controllers[1].text = '';
+    controllers[2].text = '';
   } catch (err) {
     print('ERROR:$err');
   }

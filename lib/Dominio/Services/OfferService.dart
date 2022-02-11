@@ -6,8 +6,8 @@ import 'dart:convert';
 import 'package:gigandjob_mobile_app/Views/DetallesOferta/bloc/detallesoferta_bloc.dart';
 
 class OfferService {
-  //String ApiRoute = 'https://salvacion-git-job.herokuapp.com/offer';
-  String ApiRoute = 'http://192.168.1.119:5000/Offer';
+  String ApiRoute = 'https://salvacion-git-job.herokuapp.com/offer';
+  //String ApiRoute = 'http://192.168.1.119:5000/Offer';
 
   Future<void> EnviarAplicacion(Aplicar aplicacion, String? candidateId) async {
     try {

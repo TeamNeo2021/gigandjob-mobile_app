@@ -7,7 +7,7 @@ import 'package:gigandjob_mobile_app/Views/DetallesOferta/bloc/detallesoferta_bl
 
 class OfferService {
   //String ApiRoute = 'https://salvacion-git-job.herokuapp.com/offer';
-  String ApiRoute = 'http://192.168.1.119:5000/Offer';
+  String ApiRoute = 'http://192.168.86.26:5000/Offer';
 
   Future<void> EnviarAplicacion(Aplicar aplicacion, String? candidateId) async {
     try {
@@ -23,11 +23,11 @@ class OfferService {
           Uri.parse('$ApiRoute/applyToOffer'),
           headers: <String, String>{
             "Content-Type": "application/json; charset=UTF-8"
-          },          
+          },
           body: jsonEncode(<String, dynamic>{
             'idOffer': aplicacion.OfferId,
             'idCandidate': candidateId,
-            'idEmployer':aplicacion.employerId,
+            'idEmployer': aplicacion.employerId,
             'state': aplicacion.state,
             'budget': aplicacion.budget.toString(),
             'description': aplicacion.description,

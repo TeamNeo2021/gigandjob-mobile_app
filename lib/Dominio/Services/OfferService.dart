@@ -9,18 +9,25 @@ class OfferService {
   //String ApiRoute = 'https://salvacion-git-job.herokuapp.com/offer';
   String ApiRoute = 'http://192.168.1.119:5000/Offer';
 
-  Future<void> EnviarAplicacion(Aplicar aplicacion) async {
+  Future<void> EnviarAplicacion(Aplicar aplicacion, String? candidateId) async {
     try {
       print('Enviando la vaina pa la api');
+      print(candidateId);
+      print(aplicacion.OfferId);
+      print(aplicacion.employerId);
+      print(aplicacion.state);
+      print(aplicacion.budget);
+      print(aplicacion.description);
+      print(aplicacion.duration_days);
       http.Response response = await http.put(
           Uri.parse('$ApiRoute/applyToOffer'),
           headers: <String, String>{
             "Content-Type": "application/json; charset=UTF-8"
-          },
-          body: jsonEncode(<String, String>{
-            'offerId': aplicacion.OfferId,
-            'employerId': aplicacion.employerId,
-            'candidateId': aplicacion.candidateId,
+          },          
+          body: jsonEncode(<String, dynamic>{
+            'idOffer': aplicacion.OfferId,
+            'idCandidate': candidateId,
+            'idEmployer':aplicacion.employerId,
             'state': aplicacion.state,
             'budget': aplicacion.budget.toString(),
             'description': aplicacion.description,

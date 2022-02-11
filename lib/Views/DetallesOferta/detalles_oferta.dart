@@ -266,8 +266,7 @@ void postularse(
   debugPrint('Postularse Presionado');
   try {
     BlocProvider.of<DetallesofertaBloc>(context).add(Aplicar(
-        OfferId,
-        '11', //Falta obtenerlo cuando se implemente el login
+        OfferId,        
         '22', //Considerando quitarlo
         '0', //Considerando Quitarlo
         int.parse(Controllers[0].text),

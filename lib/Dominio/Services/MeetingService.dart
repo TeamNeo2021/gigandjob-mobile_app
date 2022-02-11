@@ -49,6 +49,7 @@ class MeetingService {
   Future<void> acceptMeeting(AcceptMeeting event) async {
     try {
       print('llamando a la api');
+      print(event.candidateId+' '+event.candidateId);
       http.Response response = await http.put(
           Uri.parse('$ApiRoute/meeting/accept'),
           headers: <String, String>{

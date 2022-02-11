@@ -30,7 +30,8 @@ class DetallesofertaBloc
   Future<void> _OnAplicar(
       Aplicar event, Emitter<DetallesofertaState> emit) async {
     OfferService service = new OfferService();
-    await service.EnviarAplicacion(event);
+    String? Id = await getCurrentId();
+    await service.EnviarAplicacion(event,Id);
   }
 
   Future<void> _OnDenunciar(

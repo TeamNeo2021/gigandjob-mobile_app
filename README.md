@@ -1,16 +1,32 @@
-# gigandjob_mobile_app
+## :wrench: Installation
 
-A new Flutter project.
+1. Clone this repository
 
-## Getting Started
+```bash
+$ git clone https://github.com/TeamNeo2021/gigandjob-backend.git
+```
 
-This project is a starting point for a Flutter application.
+2. Install al the dependencies
 
-A few resources to get you started if this is your first Flutter project:
+```bash
+$ flutter pub get
+```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## :rocket: Running the app
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+# development
+$ flutter run lib/main.dart
+
+# test
+$ flutter test
+
+```
+
+## :computer: Contributors
+
+- [Carlos Alonso - Product Owner - Teacher](https://github.com/cealonzo)
+- [Jose Luis Moncada - Team Leader - Scrum Master](https://github.com/joselmoncada)
+- [Jose Leonardo Contreras - Team Leader](https://github.com/LeoProgrammerUCAB)
+- [Carlos Valero](https://github.com/cdevalero)
+- [Luis Pinto](https://github.com/LuisPinto17)

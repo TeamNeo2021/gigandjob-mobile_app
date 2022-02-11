@@ -11,8 +11,8 @@ import 'package:gigandjob_mobile_app/Views/DetallesOferta/bloc/detallesoferta_bl
 
 class MeetingService {
   // ignore: non_constant_identifier_names
-  //String ApiRoute = 'https://salvacion-git-job.herokuapp.com';
-  String ApiRoute = 'http://192.168.1.119:5000';
+  String ApiRoute = 'https://salvacion-git-job.herokuapp.com';
+  //String ApiRoute = 'http://192.168.1.119:5000';
 
   Future<List<Meeting>> getMeetings(String? candidateId) async {
     dynamic data;

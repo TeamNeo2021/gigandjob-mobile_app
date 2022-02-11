@@ -4,13 +4,13 @@ import 'package:gigandjob_mobile_app/Dominio/Models/user.dto.dart';
 import 'package:gigandjob_mobile_app/Views/Login/BLOC/authbloc_bloc.dart';
 import 'package:gigandjob_mobile_app/Views/Profile/user_translate.dart';
 
-import 'Widgets/profile_widget.dart';
+import 'Widgets/profile_image_widget.dart';
 
 class UserProfile extends StatefulWidget {
+  const UserProfile({Key? key}) : super(key: key);
+
   @override
-
   _UserProfileState createState() => _UserProfileState();
-
 }
 
 class _UserProfileState extends State<UserProfile> {
@@ -23,20 +23,24 @@ class _UserProfileState extends State<UserProfile> {
         child: ListView(
           physics: const BouncingScrollPhysics(),
           children: [
-            ProfileWidget(
+            ProfileImageWidget(
               imagePath: user.image,
-              onClicked: () async {},
             ),
             const SizedBox(height: 24),
-            buildName(user),
-            //const SizedBox(height: 24),
-            //const NumbersWidget(),
+            buildName(user.name, user.lastname, user.email),
             const SizedBox(height: 48),
             buildAbout(user),
             MaterialButton(
               color: Colors.redAccent,
-              onPressed: () => BlocProvider.of<AuthBloc>(context)
-                  .add(AuthLogoutEvent(userId: 1)),
+              onPressed: () {
+                BlocProvider.of<AuthBloc>(context)
+                    .add(AuthLogoutEvent(userId: 1));
+                void _close() {
+                  Navigator.pop(context);
+                }
+
+                _close();
+              },
               child: const Text('Logout'),
             ),
           ],
@@ -45,15 +49,15 @@ class _UserProfileState extends State<UserProfile> {
     );
   }
 
-  Widget buildName(UserDto user) => Column(
+  Widget buildName(String name, String lastname, String email) => Column(
         children: [
           Text(
-            user.name + ' ' + user.lastname,
+            name + ' ' + lastname,
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
           ),
           const SizedBox(height: 4),
           Text(
-            user.email,
+            email,
             style: const TextStyle(color: Colors.grey),
           )
         ],

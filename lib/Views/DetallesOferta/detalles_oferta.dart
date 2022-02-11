@@ -52,13 +52,13 @@ class _DetallesOfertaPageState extends State<DetallesOfertaPage> {
         CategoriaBotones(Detalles.Sector),
         //Fecha(Detalles.PublicationDate),
         titulo(),
-        LikesPostulaciones(Detalles.Rating),
+        LikesPostulaciones(Detalles.Rating, Detalles.applications, Detalles.reports),
         Container(
           padding: EdgeInsets.symmetric(vertical: 25, horizontal: 18),
           child: Text(Detalles.Description),
         ),
         //ResumenEmpleador(),
-        OpcionesPostulacion(context, '21'),
+        OpcionesPostulacion(context, widget.offerId),
       ],
     );
   }
@@ -133,14 +133,14 @@ Widget titulo() {
       ));
 }
 
-Widget LikesPostulaciones(int likes) {
+Widget LikesPostulaciones(int likes, int postulaciones, int reportes) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 0.5, horizontal: 18),
     child: Row(
       children: [
         Icon(Icons.note_alt_sharp, size: 15, color: Colors.grey[600]),
         SizedBox(width: 5),
-        Text('5 postulaciones',
+        Text('$postulaciones postulaciones',
             style: TextStyle(
                 fontWeight: FontWeight.w200, color: Colors.grey[800])),
         SizedBox(width: 30),
@@ -149,6 +149,11 @@ Widget LikesPostulaciones(int likes) {
         Text('$likes likes',
             style: TextStyle(
                 fontWeight: FontWeight.w200, color: Colors.grey[800])),
+        Icon(Icons.flag, size: 15, color: Colors.grey[600]),
+        SizedBox(width: 5),
+        Text('$reportes reportes',
+            style: TextStyle(
+                fontWeight: FontWeight.w200, color: Colors.grey[800])),        
       ],
     ),
   );

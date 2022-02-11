@@ -13,10 +13,9 @@ class MeetingList extends StatefulWidget {
 
 class _MeetingListState extends State<MeetingList> {
   @override
-  Widget build(BuildContext context) {
-    final pref = SharedPreferences.getInstance();
+  build(BuildContext context){
     BlocProvider.of<MeetinglistBloc>(context)
-        .add(GetAllMeetings('bace587b-ef79-4ee1-8d6e-db524dfb24cd' /*pref.*/));
+        .add(GetAllMeetings());
     return Scaffold(
       backgroundColor: Colors.blue[50],
       appBar: AppBar(
@@ -97,3 +96,4 @@ Widget ListaMeetings(List<Meeting> Meetings) {
         }),
   );
 }
+

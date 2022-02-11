@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:equatable/equatable.dart';
 import 'package:gigandjob_mobile_app/Dominio/Models/meeting.dart';
 import 'package:gigandjob_mobile_app/Dominio/Services/MeetingService.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'meetinglist_event.dart';
 part 'meetinglist_state.dart';
@@ -19,7 +20,8 @@ class MeetinglistBloc extends Bloc<MeetinglistEvent, MeetinglistState> {
     print('Buscando meetings');
     List<Meeting> Meetings = [];
     MeetingService service = new MeetingService();
-    Meetings = await service.getMeetings(event.CandidateId);
+    String? Id = await getCurrentId();
+    Meetings = await service.getMeetings(Id);
     emit(MeetingsLoaded(Meetings));
   }
 
@@ -33,5 +35,11 @@ class MeetinglistBloc extends Bloc<MeetinglistEvent, MeetinglistState> {
       RejectMeeting event, Emitter<MeetinglistState> emit) async {
     MeetingService service = new MeetingService();
     await service.rejectMeeting(event);
+  }
+
+  Future<String?> getCurrentId() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? userId = prefs.getString('id');
+    return userId;
   }
 }

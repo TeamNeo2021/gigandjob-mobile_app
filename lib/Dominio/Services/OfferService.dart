@@ -6,12 +6,13 @@ import 'dart:convert';
 import 'package:gigandjob_mobile_app/Views/DetallesOferta/bloc/detallesoferta_bloc.dart';
 
 class OfferService {
-  String ApiRoute = 'https://salvacion-git-job.herokuapp.com/offer';
+  //String ApiRoute = 'https://salvacion-git-job.herokuapp.com/offer';
+  String ApiRoute = 'http://192.168.1.119:5000/Offer';
 
   Future<void> EnviarAplicacion(Aplicar aplicacion) async {
     try {
       print('Enviando la vaina pa la api');
-      http.Response response = await http.post(
+      http.Response response = await http.put(
           Uri.parse('$ApiRoute/applyToOffer'),
           headers: <String, String>{
             "Content-Type": "application/json; charset=UTF-8"
@@ -25,6 +26,7 @@ class OfferService {
             'description': aplicacion.description,
             'duration_days': aplicacion.duration_days.toString(),
           }));
+      print(response.body);
     } catch (err) {
       print(err);
     }
@@ -38,15 +40,26 @@ class OfferService {
           await http.get(Uri.parse('$ApiRoute/$OfferId/getone'));
       print(response.body);
       data = json.decode(response.body);
+      int apli = 0;       
+      int repo = 0;
+      if (data['applications'] != null) {
+        List<dynamic> app = data['applications'];
+        apli = app.length;
+      }
+      if (data['reports'] != null) {
+        List<dynamic> rep = data['reports'];
+        repo = rep.length;
+      }
       detalles = new DetallesOferta(
           data['OfferId'],
-          data['Description'],
-          //data['PublicationDate'],
+          data['State'],
+          DateTime.now(), //data['PublicationDate'],
           data['Rating'],
-          data['Direction'],
           data['Sector'],
-          (data['Budget']),
-          data['Description']);
+          data['Budget'],
+          data['Description'],
+          apli,
+          repo);
       return detalles;
     } catch (err) {
       throw err;

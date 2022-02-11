@@ -6,6 +6,7 @@ import 'package:gigandjob_mobile_app/Views/OfferList/OfferListBLOC/offerlist/off
 
 class OfferListWidget extends StatelessWidget {
   //List<String> list_Of_Offers = <String>['Prueba1', 'Prueba2', 'Prueba3'];
+  String tituloformat = '';
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<OfferlistBloc, OfferlistState>(
@@ -23,7 +24,7 @@ class OfferListWidget extends StatelessWidget {
                     child: Column(children: [
                       ListTile(
                         title: Text(
-                          list_Of_Offers[index].description,
+                          tituloFormat(list_Of_Offers[index].description),
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
@@ -65,4 +66,14 @@ class OfferListWidget extends StatelessWidget {
       },
     );
   }
+}
+
+String tituloFormat(String descripcion) {
+  String tituloformat = '';
+  if (descripcion.length < 15) {
+    tituloformat = descripcion.substring(0, descripcion.length);
+  } else {
+    tituloformat = '${descripcion.substring(0, 14)}...';
+  }
+  return tituloformat;
 }

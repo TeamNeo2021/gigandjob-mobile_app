@@ -83,12 +83,13 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                   decoration: BoxDecoration(
                       border: Border(bottom: BorderSide(color: Colors.grey))),
                   child: TextFormField(
-                    key: Key('emailInput'),
+                    key: Key('emailTextField'),
                     keyboardType: TextInputType.emailAddress,
                     autocorrect: false,
                     validator: (_) {
                       //return !state.email.valid ? 'Invalid Email' : null;
-                      if (emailController.text.isEmpty) {
+                      if (emailController.text.isEmpty ||
+                          emailController.text == '') {
                         validForm = false;
                         return 'Invalid Email';
                       } else {
@@ -106,7 +107,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 Container(
                   padding: EdgeInsets.all(8.0),
                   child: TextFormField(
-                      key: Key('passwordInput'),
+                      key: Key('passwordTextField'),
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: "Password",
@@ -117,7 +118,8 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                       autocorrect: false,
                       validator: (_) {
                         // return !state.password.valid ? 'Invalid Password' : null;
-                        if (passwordController.text.isEmpty) {
+                        if (passwordController.text.isEmpty ||
+                            emailController.text == '') {
                           print('password empty');
                           validForm = false;
                           return 'Invalid Password';
@@ -134,6 +136,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
             height: 20,
           ),
           MaterialButton(
+            key: Key('loginButton'),
             height: 50,
             color: Colors.blue,
             child: Center(
